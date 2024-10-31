@@ -1,15 +1,72 @@
 import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const vazirmatn = localFont({
+  src: [
+    {
+      path: "./fonts/vazirmatn-thin.woff2",
+      variable: "--font-vazirmatn",
+      weight: "100",
+      style: "normal",
+      display: "swap",
+    },
+    {
+      path: "./fonts/vazirmatn-extraLight.woff2",
+      variable: "--font-vazirmatn",
+      weight: "200",
+      style: "normal",
+      display: "swap",
+    },
+    {
+      path: "./fonts/vazirmatn-light.woff2",
+      variable: "--font-vazirmatn",
+      weight: "300",
+      style: "normal",
+      display: "swap",
+    },
+    {
+      path: "./fonts/vazirmatn-regular.woff2",
+      variable: "--font-vazirmatn",
+      weight: "400",
+      style: "normal",
+      display: "swap",
+    },
+    {
+      path: "./fonts/vazirmatn-medium.woff2",
+      variable: "--font-vazirmatn",
+      weight: "500",
+      style: "normal",
+      display: "swap",
+    },
+    {
+      path: "./fonts/vazirmatn-semiBold.woff2",
+      variable: "--font-vazirmatn",
+      weight: "600",
+      style: "normal",
+      display: "swap",
+    },
+    {
+      path: "./fonts/vazirmatn-bold.woff2",
+      variable: "--font-vazirmatn",
+      weight: "700",
+      style: "normal",
+      display: "swap",
+    },
+    {
+      path: "./fonts/vazirmatn-extraBold.woff2",
+      variable: "--font-vazirmatn",
+      weight: "800",
+      style: "normal",
+      display: "swap",
+    },
+    {
+      path: "./fonts/vazirmatn-black.woff2",
+      variable: "--font-vazirmatn",
+      weight: "900",
+      style: "normal",
+      display: "swap",
+    },
+  ],
 });
 
 export const metadata = {
@@ -19,12 +76,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="fa" dir="rtl">
+      <body className={`${vazirmatn.className} antialiased`}>{children}</body>
     </html>
   );
 }
