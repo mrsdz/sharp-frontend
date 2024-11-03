@@ -74,6 +74,7 @@ export default function Otp({ changeStep, phoneNumber }) {
             maxLength={4}
             value={otp}
             onChange={(value) => setOtp(value)}
+            autoFocus
           >
             <InputOTPGroup>
               <InputOTPSlot index={3} />
