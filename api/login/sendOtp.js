@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import AxiosInstance from "../instance";
+import AxiosInstance from "@/api/instance";
 
 const schema = z.object({
   phone_number: z.string().superRefine((value, ctx) => {
@@ -33,7 +33,7 @@ export default function sendOtp(formData) {
     };
   }
 
-  return AxiosInstance.post("/api/user/otp/send/", {
-    phone_number: formData.get("phone_number"),
+  return AxiosInstance.post("/api/staff/otp/send/", {
+    phone_number: formData.get("phone_number").replace(/^0/, "+98"),
   });
 }

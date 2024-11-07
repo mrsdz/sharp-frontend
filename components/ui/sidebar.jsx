@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import { PanelLeft } from "lucide-react";
+import { PanelRight } from "lucide-react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
@@ -18,7 +18,7 @@ const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_WIDTH = "16rem";
 const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
-const SIDEBAR_KEYBOARD_SHORTCUT = "F5";
+const SIDEBAR_KEYBOARD_SHORTCUT = "s";
 
 const SidebarContext = React.createContext(null);
 
@@ -73,7 +73,6 @@ const SidebarProvider = React.forwardRef(
     // Adds a keyboard shortcut to toggle the sidebar.
     React.useEffect(() => {
       const handleKeyDown = (event) => {
-        console.log(event.key);
         if (event.key === SIDEBAR_KEYBOARD_SHORTCUT && (event.metaKey || event.ctrlKey)) {
           event.preventDefault();
           toggleSidebar();
@@ -236,7 +235,7 @@ const SidebarTrigger = React.forwardRef(({ className, onClick, ...props }, ref) 
       }}
       {...props}
     >
-      <PanelLeft />
+      <PanelRight />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );

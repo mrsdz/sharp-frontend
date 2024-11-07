@@ -9,41 +9,60 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import ConfirmDialog from "@/components/confirm-dialog";
+import { Badge } from "@/components/ui/badge";
+
 import { Edit3, MoreVertical, Trash2Icon } from "lucide-react";
+// views
+import EditUserDialog from "./edit";
+import DeleteUserDialog from "./delete";
 
-export default function TableUser() {
-  const [openDeleteUser, setOpenDeleteUser] = useState(false);
+const initialData = { open: false, id: null };
 
-  console.log(openDeleteUser);
+export default function TableUser({ data = { results: [] } }) {
+  const [openDeleteUser, setOpenDeleteUser] = useState(initialData);
+  const [openEditUser, setOpenEditUser] = useState(false);
 
   return (
     <>
       <DataTable
         columns={[
+          { header: "#", cell: ({ row: { index } }) => index + 1 },
           {
-            accessorKey: "name",
+            accessorKey: "display_name",
+            header: "نام نمایشی",
+          },
+          {
+            accessorKey: "first_name",
             header: "نام",
+            cell: ({ row: { original } }) => original.staff.first_name || "-",
           },
           {
             accessorKey: "last_name",
-            header: "نام خانوادگی",
+            header: "نام‌خانوادگی",
+            cell: ({ row: { original } }) => original.staff.last_name || "-",
           },
           {
-            accessorKey: "position",
-            header: "سمت",
-          },
-          {
-            accessorKey: "phone_number",
+            accessorKey: "username",
             header: "شماره همراه",
+            cell: ({ row: { original } }) => <span dir="ltr">{original.staff.username}</span>,
           },
           {
-            accessorKey: "gender",
-            header: "جنسیت",
+            accessorKey: "group",
+            header: "سمت",
+            cell: ({ getValue }) => getValue()?.name,
+          },
+          {
+            accessorKey: "is_active",
+            header: "وضعیت",
+            cell: ({ getValue }) => (
+              <Badge variant={getValue() ? "success" : "destructive"}>
+                {getValue() ? "فعال" : "غیر فعال"}
+              </Badge>
+            ),
           },
           {
             header: "اقدامات",
-            cell: ({ getValue }) => (
+            cell: ({ row: { original } }) => (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost">
@@ -51,12 +70,12 @@ export default function TableUser() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setOpenEditUser(!openEditUser)}>
                     <Edit3 />
                     ویرایش
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => setOpenDeleteUser(!openDeleteUser)}
+                    onClick={() => setOpenDeleteUser({ open: true, id: original.id })}
                     className="text-destructive"
                   >
                     <Trash2Icon />
@@ -67,42 +86,14 @@ export default function TableUser() {
             ),
           },
         ]}
-        data={[
-          {
-            id: "728ed52f",
-            name: "اشکان",
-            last_name: "دهباشی",
-            position: "صندوق دار",
-            phone_number: "09380277445",
-            gender: "مرد",
-          },
-          {
-            id: "728ed52f",
-            name: "اشکان",
-            last_name: "دهباشی",
-            position: "صندوق دار",
-            phone_number: "09380277445",
-            gender: "مرد",
-          },
-          {
-            id: "728ed52f",
-            name: "اشکان",
-            last_name: "دهباشی",
-            position: "صندوق دار",
-            phone_number: "09380277445",
-            gender: "مرد",
-          },
-          {
-            id: "728ed52f",
-            name: "اشکان",
-            last_name: "دهباشی",
-            position: "صندوق دار",
-            phone_number: "09380277445",
-            gender: "مرد",
-          },
-        ]}
+        data={data}
       />
-      <ConfirmDialog name="کاربر" open={openDeleteUser} setOpen={setOpenDeleteUser} />
+      <DeleteUserDialog
+        open={openDeleteUser.open}
+        id={openDeleteUser.id}
+        setOpen={() => setOpenDeleteUser(initialData)}
+      />
+      <EditUserDialog open={openEditUser} setOpen={setOpenEditUser} />
     </>
   );
 }

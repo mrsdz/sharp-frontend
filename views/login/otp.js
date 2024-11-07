@@ -3,6 +3,7 @@ import { useTransition, useState, useEffect, useRef } from "react";
 //api
 import sendOtp from "@/api/login/sendOtp";
 import verifyOtp from "@/api/login/verifyOtp";
+import AxiosInstance from "@/api/instance";
 // hooks
 import useTimer from "@/hooks/use-timer";
 // components
@@ -38,7 +39,7 @@ export default function Otp({ changeStep, phoneNumber }) {
         else if (result.status === 200) {
           setError({});
           await setCookie("token", result.data.token);
-          router.replace("/dashboard");
+          router.replace("/accounts");
         }
       } catch ({ status, response }) {
         if (status === 400) setError({ otp: "کد وارد شده اشتباه است." });

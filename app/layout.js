@@ -83,7 +83,7 @@ export default function RootLayout({ children }) {
       <body className={`${vazirmatn.className} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >

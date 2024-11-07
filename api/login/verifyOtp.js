@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import AxiosInstance from "../instance";
+import AxiosInstance from "@/api/instance";
 
 const schema = z.object({
   otp: z.string().min(4, "کد باید ۴ رقم داشته باشد"),
@@ -17,8 +17,8 @@ export default function verifyOtp(formData, phoneNumber) {
     };
   }
 
-  return AxiosInstance.post("/api/user/otp/verify/", {
-    phone_number: phoneNumber,
+  return AxiosInstance.post("/api/staff/otp/verify/", {
+    phone_number: phoneNumber.replace(/^0/, "+98"),
     otp: formData.get("otp"),
   });
 }

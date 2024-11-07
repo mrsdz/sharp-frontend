@@ -8,8 +8,20 @@ export async function setCookie(name, data) {
   cookieStore.set(name, data);
 }
 
-export async function getCookie(name) {
+export async function deleteCookie(name) {
+  const cookieStore = await cookies();
+
+  cookieStore.delete(name);
+}
+
+export async function hasCookie(name) {
   const cookieStore = await cookies();
 
   return cookieStore.has(name);
+}
+
+export async function getCookie(name) {
+  const cookieStore = await cookies();
+
+  return cookieStore.get(name);
 }
