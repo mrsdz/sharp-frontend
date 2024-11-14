@@ -1,5 +1,9 @@
 "use client";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+// store
+import { useAppStore } from "@/store/provider-store";
+// utils
 import { deleteCookie } from "@/utils/cookies";
 
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from "lucide-react";
@@ -24,6 +28,11 @@ import {
 export function NavUser({ user }) {
   const navigation = useRouter();
   const { isMobile } = useSidebar();
+  const { setUser, user: userInfo } = useAppStore((state) => state);
+
+  useEffect(() => {
+    if (user) setUser(user);
+  }, [user]);
 
   return (
     <SidebarMenu>
@@ -35,12 +44,18 @@ export function NavUser({ user }) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {userInfo?.first_name?.slice(0, 1)}
+                  {userInfo?.last_name?.slice(0, 1)}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-right text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-semibold">
+                  {userInfo?.first_name} {userInfo?.last_name}
+                </span>
+                <span className="truncate text-xs" style={{ direction: "ltr" }}>
+                  {userInfo?.username}
+                </span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -54,17 +69,21 @@ export function NavUser({ user }) {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-right text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {userInfo?.first_name?.slice(0, 1)}
+                    {userInfo?.last_name?.slice(0, 1)}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-right text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-semibold">
+                    {userInfo?.first_name} {userInfo?.last_name}
+                  </span>
+                  <span className="truncate text-xs">{userInfo?.username}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            {/* <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Sparkles />
                 Upgrade to Pro
@@ -85,7 +104,7 @@ export function NavUser({ user }) {
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator /> */}
             <DropdownMenuItem
               onClick={async () => {
                 await deleteCookie("token");
@@ -93,7 +112,7 @@ export function NavUser({ user }) {
               }}
             >
               <LogOut />
-              Log out
+              خروج
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

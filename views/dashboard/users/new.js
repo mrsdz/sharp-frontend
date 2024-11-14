@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useParams } from "next/navigation";
 // api
-import newUserApi from "@/api/dashboard/users/new";
+import newUserApi from "@/api/dashboard/store/staff/new";
 // components
 import { Button } from "@/components/ui/button";
 import { DrawerDialog } from "@/components/drawer-dialog";

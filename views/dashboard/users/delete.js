@@ -1,7 +1,7 @@
 import { useParams } from "next/navigation";
 import { useTransition } from "react";
 // api
-import deleteUserApi from "@/api/dashboard/users/delete";
+import deleteUserApi from "@/api/dashboard/store/staff/delete";
 // components
 import ConfirmDialog from "@/components/confirm-dialog";
 
@@ -14,7 +14,7 @@ export default function DeleteUserDialog({ open, id, setOpen }) {
       try {
         const result = await deleteUserApi({ storeId, userId: id });
 
-        console.log(result);
+        if (result?.status === 204) setOpen();
       } catch (error) {
         console.log(error);
       }

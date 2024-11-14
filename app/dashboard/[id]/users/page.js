@@ -1,21 +1,16 @@
 // api
-import getStoreStaffs from "@/api/store/staff/getStaffs";
+import getStoreStaffs from "@/api/dashboard/store/staff/getStaffs";
 // components
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import NewUser from "@/views/dashboard/users/new";
-import MultiTagSelect from "@/components/multi-tag-select";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 // views
-import TableUser from "@/views/dashboard/users/table";
-import { Input } from "@/components/ui/input";
+import ViewUsers from "@/views/dashboard/users";
 
-export default async function Users({ params }) {
+export default async function Users({ params, searchParams }) {
   const id = (await params).id;
-  const data = await getStoreStaffs(id);
-  // const [position, setPosition] = useState([]);
+  const { page, search, group, countPerPage, isActive } = await searchParams;
 
-  console.log(data);
+  const data = await getStoreStaffs({ id, page, search, group, isActive, countPerPage });
 
   return (
     <Card className="shadow-none">
@@ -30,26 +25,7 @@ export default async function Users({ params }) {
         <NewUser />
       </CardHeader>
       <CardContent>
-        <div className="flex gap-4 mb-4">
-          <Input placeholder="جستجو کاربران..." className="w-fit" />
-          <MultiTagSelect
-            placeholder="سمت"
-            options={[
-              { label: "کارمند", value: "staff" },
-              { label: "رییس", value: "boss" },
-              { label: "ابدارچی", value: "handyman" },
-            ]}
-            // setValues={setPosition}
-            // values={position}
-          />
-          <div className="flex items-center gap-2">
-            <Switch id="is-active" />
-            <Label className="text-muted-foreground" htmlFor="is-active">
-              فعال
-            </Label>
-          </div>
-        </div>
-        <TableUser data={data} />
+        <ViewUsers id={id} data={data} />
       </CardContent>
     </Card>
   );

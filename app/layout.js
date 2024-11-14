@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
 // components
 import { ThemeProvider } from "@/components/theme-provider";
+// store
+import { AppStoreProvider } from "@/store/provider-store";
 // style
 import "./globals.css";
 
@@ -81,14 +83,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl" suppressHydrationWarning>
       <body className={`${vazirmatn.className} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <AppStoreProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </AppStoreProvider>
       </body>
     </html>
   );

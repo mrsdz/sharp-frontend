@@ -1,5 +1,10 @@
-"use client";
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  getPaginationRowModel,
+} from "@tanstack/react-table";
+// components
 import {
   Table,
   TableBody,
@@ -10,26 +15,27 @@ import {
 } from "@/components/ui/table";
 import { DataTablePagination } from "./pagination";
 
-export function DataTable({ columns, data }) {
+export function DataTable({ columns, data, refetchData }) {
   const table = useReactTable({
     data: data.results,
     columns,
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true,
-    pageCount: data?.total_pages,
-    state: {
-      pagination: {
-        pageIndex: data.current_page - 1,
-        pageSize: 10,
-      },
-    },
-    manualPagination: true,
+    getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: (updater) => {
       const newPagination = updater({
         pageIndex: data.current_page - 1,
-        pageSize: 10,
+        pageSize: data.count_per_page,
       });
-      console.log(newPagination.pageIndex + 1, newPagination.pageSize);
+
+      refetchData({ page: newPagination.pageIndex + 1, countPerPage: newPagination.pageSize });
+    },
+    pageCount: data.total_pages,
+    state: {
+      pagination: {
+        pageIndex: data.current_page - 1,
+        pageSize: data.count_per_page,
+      },
     },
   });
 
@@ -70,7 +76,7 @@ export function DataTable({ columns, data }) {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  اطلاعاتی یافت نشد!
                 </TableCell>
               </TableRow>
             )}

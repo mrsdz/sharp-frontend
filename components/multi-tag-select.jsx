@@ -31,7 +31,6 @@ export default function MultiTagSelect({
   const { theme } = useTheme();
   const [open, setOpen] = useState(false);
 
-  // Replaced generateValues with a simplified version using conditions.
   function renderBadges() {
     if (!values.length) return null;
 
@@ -81,7 +80,7 @@ export default function MultiTagSelect({
       <PopoverContent align="start" className="p-0 w-full">
         <Command
           filter={(value, search) => {
-            const option = options.find((opt) => opt.value === value);
+            const option = options.find((opt) => opt.label === value);
             return option?.label?.toLowerCase().includes(search.toLowerCase()) ? 1 : 0;
           }}
           align="right"

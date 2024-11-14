@@ -12,7 +12,7 @@ import {
 export function DataTablePagination({ table }) {
   return (
     <div dir="rtl" className="flex items-center justify-between mt-4">
-      <div className="flex items-center">
+      <div className="flex items-center gap-1">
         <Button
           variant="outline"
           className="hidden h-8 w-8 p-0 lg:flex"
@@ -20,7 +20,7 @@ export function DataTablePagination({ table }) {
           disabled={!table.getCanPreviousPage()}
         >
           <span className="sr-only">Go to first page</span>
-          <ChevronRight />
+          <ChevronsRight />
         </Button>
         <Button
           variant="outline"
@@ -29,7 +29,7 @@ export function DataTablePagination({ table }) {
           disabled={!table.getCanPreviousPage()}
         >
           <span className="sr-only">Go to previous page</span>
-          <ChevronsRight />
+          <ChevronRight />
         </Button>
         <Button
           variant="outline"

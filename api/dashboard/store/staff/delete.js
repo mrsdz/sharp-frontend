@@ -1,4 +1,4 @@
-"use client";
+"use server";
 import { revalidatePath } from "next/cache";
 // api
 import AxiosInstance from "@/api/instance";
@@ -12,10 +12,8 @@ export default async function deleteUserApi({ storeId, userId }) {
     headers: { ...(await getToken()) },
   }).catch((e) => console.log(e));
 
-  console.log(res);
-
-  //   if (res.status === 201) {
-  //     revalidatePath("/dashboard/:id/users");
-  //     return { status: 201, data: res.data };
-  //   }
+  if (res.status === 204) {
+    revalidatePath("/dashboard/:id/users");
+    return { status: 204 };
+  }
 }

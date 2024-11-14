@@ -10,13 +10,11 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-export function NavManagement({ managements }) {
+export function NavManagement({ dashboardId, managements }) {
   const pathname = usePathname();
 
-  const dashboardId = pathname.split("/")[2];
-
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+    <SidebarGroup className="group-data-[collapsible=icon]:hidden pt-0">
       <SidebarGroupLabel>مدیریت</SidebarGroupLabel>
       <SidebarMenu>
         {managements.map((item) => (

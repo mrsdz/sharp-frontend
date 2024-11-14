@@ -1,3 +1,5 @@
+"use server";
+
 import AxiosInstance from "@/api/instance";
 import getToken from "@/utils/getToken";
 

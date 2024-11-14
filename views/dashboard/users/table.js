@@ -15,12 +15,23 @@ import { Edit3, MoreVertical, Trash2Icon } from "lucide-react";
 // views
 import EditUserDialog from "./edit";
 import DeleteUserDialog from "./delete";
+import { useAppStore } from "@/store/provider-store";
 
-const initialData = { open: false, id: null };
+const initialDeleteData = { open: false, id: null };
+const initialEditData = {
+  open: false,
+  data: {
+    display_name: "",
+    group: "",
+    username: "",
+    is_active: false,
+  },
+};
 
-export default function TableUser({ data = { results: [] } }) {
-  const [openDeleteUser, setOpenDeleteUser] = useState(initialData);
-  const [openEditUser, setOpenEditUser] = useState(false);
+export default function TableUser({ data = { results: [], current_page: 1 }, refetchData }) {
+  const userId = useAppStore((state) => state.user.id);
+  const [openDeleteUser, setOpenDeleteUser] = useState(initialDeleteData);
+  const [openEditUser, setOpenEditUser] = useState(initialEditData);
 
   return (
     <>
@@ -44,7 +55,9 @@ export default function TableUser({ data = { results: [] } }) {
           {
             accessorKey: "username",
             header: "شماره همراه",
-            cell: ({ row: { original } }) => <span dir="ltr">{original.staff.username}</span>,
+            cell: ({ row: { original } }) => (
+              <span dir="ltr">{original.staff.username?.replace(/^\+98/, "0")}</span>
+            ),
           },
           {
             accessorKey: "group",
@@ -62,38 +75,48 @@ export default function TableUser({ data = { results: [] } }) {
           },
           {
             header: "اقدامات",
-            cell: ({ row: { original } }) => (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost">
-                    <MoreVertical width={18} height={18} />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem onClick={() => setOpenEditUser(!openEditUser)}>
-                    <Edit3 />
-                    ویرایش
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => setOpenDeleteUser({ open: true, id: original.id })}
-                    className="text-destructive"
-                  >
-                    <Trash2Icon />
-                    حذف
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ),
+            cell: ({ row: { original } }) =>
+              original.staff.id !== userId ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost">
+                      <MoreVertical width={18} height={18} />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem
+                      onClick={() => setOpenEditUser({ open: true, data: original })}
+                    >
+                      <Edit3 />
+                      ویرایش
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => setOpenDeleteUser({ open: true, id: original.id })}
+                      className="text-destructive"
+                    >
+                      <Trash2Icon />
+                      حذف
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <span className="px-4 py-2 text-base">-</span>
+              ),
           },
         ]}
         data={data}
+        refetchData={refetchData}
       />
       <DeleteUserDialog
         open={openDeleteUser.open}
         id={openDeleteUser.id}
-        setOpen={() => setOpenDeleteUser(initialData)}
+        setOpen={() => setOpenDeleteUser(initialDeleteData)}
       />
-      <EditUserDialog open={openEditUser} setOpen={setOpenEditUser} />
+      <EditUserDialog
+        open={openEditUser.open}
+        initialData={openEditUser.data}
+        setOpen={() => setOpenEditUser(initialEditData)}
+      />
     </>
   );
 }

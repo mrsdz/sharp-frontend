@@ -1,20 +1,19 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
+import { usePathname } from "next/navigation";
 // api
-import editUserApi from "@/api/dashboard/users/edit";
+import editUserApi from "@/api/dashboard/store/staff/edit";
+// serializer
+import serializeStaffInfo from "@/serializers/staffInfo";
 // components
 import { Button } from "@/components/ui/button";
 import { DrawerDialog } from "@/components/drawer-dialog";
 import FormUser from "./form";
 
-const initialData = {
-  display_name: "",
-  group: "",
-  username: "",
-};
-
-export default function EditUserDialog({ open, setOpen }) {
+export default function EditUserDialog({ open, initialData = null, setOpen }) {
+  const pathname = usePathname();
+  const dashboardId = pathname.split("/")[2];
   const [isPending, startTransition] = useTransition();
 
   const [errors, setError] = useState({});
@@ -24,16 +23,15 @@ export default function EditUserDialog({ open, setOpen }) {
   function handleSubmit() {
     startTransition(async () => {
       try {
-        const result = await editUserApi(data);
+        const result = await editUserApi(data, dashboardId);
 
         if (result?.errors) setError(result.errors);
-        else if (result.status === 204) {
+        else if (result.status === 200) {
           setError({});
-          setOpen(false);
-          setData(initialData);
+          setOpen();
         }
-      } catch ({ status, response }) {
-        console.log(status, response);
+      } catch (error) {
+        console.log(error);
       }
     });
   }
@@ -42,6 +40,8 @@ export default function EditUserDialog({ open, setOpen }) {
     setData({ ...data, [name]: value });
     setError({ ...errors, [name]: null });
   }
+
+  useEffect(() => setData(serializeStaffInfo(initialData)), [initialData]);
 
   return (
     <DrawerDialog
@@ -57,7 +57,7 @@ export default function EditUserDialog({ open, setOpen }) {
         </>
       }
     >
-      <FormUser data={data} setData={handleInput} errors={errors} />
+      <FormUser data={data} setData={handleInput} errors={errors} isEdit={true} />
     </DrawerDialog>
   );
 }

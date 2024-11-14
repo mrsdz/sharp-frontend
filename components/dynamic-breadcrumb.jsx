@@ -44,7 +44,7 @@ const DynamicBreadcrumb = () => {
                   <BreadcrumbLink href={href}>{segmentNames[segment] || ""}</BreadcrumbLink>
                 )}
               </BreadcrumbItem>
-              {!isLast && <BreadcrumbSeparator />}
+              {!isLast && pathSegments.length > 2 && <BreadcrumbSeparator />}
             </Fragment>
           );
         })}

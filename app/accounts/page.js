@@ -1,13 +1,16 @@
 // api
-import getStores from "@/api/store/info/getStores";
+import getStores from "@/api/dashboard/store/info/getStores";
 // components
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 // views
 import Accounts from "@/views/accounts";
+import { redirect } from "next/navigation";
 
 export default async function SelectPharmacy() {
   const data = await getStores();
+
+  if (data.results.length === 1) redirect(`/dashboard/${data.results[0].id}`);
 
   return (
     <div className="h-screen w-full flex items-center justify-center bg-neutral-50 dark:bg-background">
