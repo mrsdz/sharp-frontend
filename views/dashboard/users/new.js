@@ -2,12 +2,16 @@
 
 import { useState, useTransition } from "react";
 import { useParams } from "next/navigation";
+// auth
+import withAccess from "@/auth/withAccess";
 // api
 import newUserApi from "@/api/dashboard/store/staff/new";
 // components
 import { Button } from "@/components/ui/button";
 import { DrawerDialog } from "@/components/drawer-dialog";
 import FormUser from "./form";
+// constants
+import { ADD_STAFF } from "@/constants/permissions";
 
 const initialData = {
   display_name: "",
@@ -15,7 +19,7 @@ const initialData = {
   username: "",
 };
 
-export default function NewUser() {
+function NewUser() {
   const { id } = useParams();
   const [isPending, startTransition] = useTransition();
 
@@ -69,3 +73,5 @@ export default function NewUser() {
     </>
   );
 }
+
+export default withAccess(NewUser, [ADD_STAFF]);

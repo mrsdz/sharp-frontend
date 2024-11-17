@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useTheme } from "next-themes";
 import { PlusCircle, Minus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -28,7 +27,6 @@ export default function MultiTagSelect({
   values = [],
   setValues = () => null,
 }) {
-  const { theme } = useTheme();
   const [open, setOpen] = useState(false);
 
   function renderBadges() {
@@ -65,9 +63,7 @@ export default function MultiTagSelect({
           variant="outlined"
           role="combobox"
           aria-expanded={open}
-          className={`w-fit h-9 gap-2 border border-input border-dashed hover:bg-accent ${
-            theme === "dark" ? "bg-transparent" : "bg-background"
-          }`}
+          className="w-fit h-9 gap-2 border border-input border-dashed hover:bg-accent"
         >
           <PlusCircle width={16} height={16} className="text-muted-foreground" />
           <span className="text-muted-foreground mt-0.5">{placeholder}</span>

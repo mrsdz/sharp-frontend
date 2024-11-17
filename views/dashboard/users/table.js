@@ -10,12 +10,14 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-
+import HasAccessComponent from "@/components/has-access-component";
 import { Edit3, MoreVertical, Trash2Icon } from "lucide-react";
 // views
 import EditUserDialog from "./edit";
 import DeleteUserDialog from "./delete";
 import { useAppStore } from "@/store/provider-store";
+// constants
+import { EDIT_STAFF, DELETE_STAFF } from "@/constants/permissions";
 
 const initialDeleteData = { open: false, id: null };
 const initialEditData = {
@@ -84,19 +86,29 @@ export default function TableUser({ data = { results: [], current_page: 1 }, ref
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem
-                      onClick={() => setOpenEditUser({ open: true, data: original })}
-                    >
-                      <Edit3 />
-                      ویرایش
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() => setOpenDeleteUser({ open: true, id: original.id })}
-                      className="text-destructive"
-                    >
-                      <Trash2Icon />
-                      حذف
-                    </DropdownMenuItem>
+                    <HasAccessComponent
+                      component={
+                        <DropdownMenuItem
+                          onClick={() => setOpenEditUser({ open: true, data: original })}
+                        >
+                          <Edit3 />
+                          ویرایش
+                        </DropdownMenuItem>
+                      }
+                      requiredPermissions={[EDIT_STAFF]}
+                    />
+                    <HasAccessComponent
+                      component={
+                        <DropdownMenuItem
+                          onClick={() => setOpenDeleteUser({ open: true, id: original.id })}
+                          className="text-destructive"
+                        >
+                          <Trash2Icon />
+                          حذف
+                        </DropdownMenuItem>
+                      }
+                      requiredPermissions={[DELETE_STAFF]}
+                    />
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (

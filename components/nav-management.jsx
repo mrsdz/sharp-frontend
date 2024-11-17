@@ -1,6 +1,8 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+// store
+import { useAppStore } from "@/store/provider-store";
 // components
 import {
   SidebarGroup,
@@ -11,13 +13,20 @@ import {
 } from "@/components/ui/sidebar";
 
 export function NavManagement({ dashboardId, managements }) {
+  const { permissions } = useAppStore();
   const pathname = usePathname();
+
+  // Filter visible items first
+  const visibleItems = managements.filter((item) => permissions.includes(item.permission));
+
+  // If no visible items, don't render anything
+  if (visibleItems.length === 0) return null;
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden pt-0">
       <SidebarGroupLabel>مدیریت</SidebarGroupLabel>
       <SidebarMenu>
-        {managements.map((item) => (
+        {visibleItems.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton
               isActive={pathname === `/dashboard/${dashboardId}${item.url}`}

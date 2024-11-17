@@ -1,12 +1,6 @@
-import {
-  AudioWaveform,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Users,
-} from "lucide-react";
+import { AudioWaveform, Command, GalleryVerticalEnd, Users } from "lucide-react";
+// constants
+import { VIEW_STAFF } from "@/constants/permissions";
 
 const sidebar = {
   user: {
@@ -36,6 +30,7 @@ const sidebar = {
       name: "کاربران",
       url: "/users",
       icon: Users,
+      permission: VIEW_STAFF,
     },
   ],
   navMain: [

@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 // api
 import AxiosInstance from "@/api/instance";
 // utils
-import getToken from "@/utils/getToken";
+import getToken from "@/auth/getToken";
 import schema from "./schema";
 
 export default async function editUserApi(data, id) {

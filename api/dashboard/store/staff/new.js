@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import AxiosInstance from "@/api/instance";
 import schema from "./schema";
 // utils
-import getToken from "@/utils/getToken";
+import getToken from "@/auth/getToken";
 
 export default async function newUserApi(data, id) {
   const validatedFields = schema.safeParse(data);

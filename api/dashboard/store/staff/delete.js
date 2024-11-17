@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 // api
 import AxiosInstance from "@/api/instance";
 // utils
-import getToken from "@/utils/getToken";
+import getToken from "@/auth/getToken";
 
 export default async function deleteUserApi({ storeId, userId }) {
   if (!storeId || !userId) return null;

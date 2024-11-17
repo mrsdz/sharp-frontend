@@ -12,7 +12,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -28,7 +27,7 @@ import {
 export function NavUser({ user }) {
   const navigation = useRouter();
   const { isMobile } = useSidebar();
-  const { setUser, user: userInfo } = useAppStore((state) => state);
+  const { setUser, user: userInfo, setLogout } = useAppStore((state) => state);
 
   useEffect(() => {
     if (user) setUser(user);
@@ -108,6 +107,7 @@ export function NavUser({ user }) {
             <DropdownMenuItem
               onClick={async () => {
                 await deleteCookie("token");
+                setLogout();
                 navigation.push("/");
               }}
             >

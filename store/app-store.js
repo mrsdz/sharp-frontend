@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 export const defaultInitState = {
   user: {},
+  permissions: [],
 };
 
 export const createAppStore = (initState = defaultInitState) => {
@@ -11,6 +12,8 @@ export const createAppStore = (initState = defaultInitState) => {
       (set) => ({
         ...initState,
         setUser: (payload) => set(() => ({ user: payload })),
+        setLogout: () => set(() => defaultInitState),
+        setPermissions: (payload) => set(() => ({ permissions: payload })),
       }),
       {
         name: "sharp-store",
