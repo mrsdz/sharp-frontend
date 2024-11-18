@@ -24,16 +24,16 @@ export function NavManagement({ dashboardId, managements }) {
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden pt-0">
-      <SidebarGroupLabel>مدیریت</SidebarGroupLabel>
       <SidebarMenu>
         {visibleItems.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton
               isActive={pathname === `/dashboard/${dashboardId}${item.url}`}
               asChild
+              size="lg"
             >
               <Link href={`/dashboard/${dashboardId}${item.url}`}>
-                <item.icon />
+                <item.icon className="[&>svg]:size-10" />
                 <span>{item.name}</span>
               </Link>
             </SidebarMenuButton>

@@ -43,18 +43,6 @@ export function AppSidebar({ userInfo, permissions, ...props }) {
         <StoreSwitcher />
       </SidebarHeader>
       <SidebarContent className="gap-0">
-        <SidebarGroup className="group-data-[collapsible=icon]:hidden pb-0">
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton isActive={pathname === `/dashboard/${dashboardId}`} asChild>
-                <Link href={`/dashboard/${dashboardId}`}>
-                  <Home />
-                  <span>داشبورد</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroup>
         {/* <NavMain items={sidebar.navMain} /> */}
         <NavManagement dashboardId={dashboardId} managements={sidebar.managements} />
       </SidebarContent>
