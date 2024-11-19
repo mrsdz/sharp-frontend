@@ -1,23 +1,16 @@
 "use client";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 // store
 import { useAppStore } from "@/store/provider-store";
 // components
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar";
+import { SidebarGroup, SidebarMenu } from "@/components/ui/sidebar";
+import { NavCollapsible } from "@/components/nav-collapsible";
+import { NavSingle } from "@/components/nav-single";
 
-export function NavManagement({ dashboardId, managements }) {
+export function NavManagement({ dashboardId, items }) {
   const { permissions } = useAppStore();
-  const pathname = usePathname();
 
   // Filter visible items first
-  const visibleItems = managements.filter((item) => permissions.includes(item.permission));
+  const visibleItems = items.filter((item) => permissions.includes(item.permission));
 
   // If no visible items, don't render anything
   if (visibleItems.length === 0) return null;
@@ -25,20 +18,13 @@ export function NavManagement({ dashboardId, managements }) {
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden pt-0">
       <SidebarMenu>
-        {visibleItems.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton
-              isActive={pathname === `/dashboard/${dashboardId}${item.url}`}
-              asChild
-              size="lg"
-            >
-              <Link href={`/dashboard/${dashboardId}${item.url}`}>
-                <item.icon className="[&>svg]:size-10" />
-                <span>{item.name}</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        ))}
+        {visibleItems.map((item) =>
+          item.children ? (
+            <NavCollapsible key={item.name} item={item} dashboardId={dashboardId} />
+          ) : (
+            <NavSingle key={item.name} item={item} dashboardId={dashboardId} />
+          )
+        )}
       </SidebarMenu>
     </SidebarGroup>
   );

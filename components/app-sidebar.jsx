@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 // store
 import { useAppStore } from "@/store/provider-store";
 // constants
@@ -17,13 +16,6 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar";
-import { Home } from "lucide-react";
-import {
-  SidebarGroup,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
 } from "@/components/ui/sidebar";
 
 export function AppSidebar({ userInfo, permissions, ...props }) {
@@ -43,8 +35,7 @@ export function AppSidebar({ userInfo, permissions, ...props }) {
         <StoreSwitcher />
       </SidebarHeader>
       <SidebarContent className="gap-0">
-        {/* <NavMain items={sidebar.navMain} /> */}
-        <NavManagement dashboardId={dashboardId} managements={sidebar.managements} />
+        <NavManagement dashboardId={dashboardId} items={sidebar} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={userInfo} />
