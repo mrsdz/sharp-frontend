@@ -20,16 +20,22 @@ const DynamicBreadcrumb = () => {
 
   const segmentNames = {
     dashboard: "داشبورد",
-    // users
-    users: "کاربران",
+    new: "جدید",
+    // staff
+    staff: "کاربران",
+    // warehousing
+    warehousing: "انبارداری",
+    purchase_documents: "اسناد خرید",
   };
+
+  const skipSegments = ["warehousing"];
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
         {pathSegments.map((segment, index) => {
           // Skip the ID segment in the breadcrumb text
-          if (index === 1 && validateToken(segment)) return null;
+          if (index === 1 && validateToken(segment) || skipSegments.includes(segment)) return null;
 
           const href = `/dashboard/${dashboardId}/` + pathSegments.slice(2, index + 1).join("/");
 

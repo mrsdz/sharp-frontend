@@ -1,10 +1,11 @@
 "use client";
+// next
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 // views
-import FilterUser from "@/views/dashboard/users/filters";
-import TableUser from "@/views/dashboard/users/table";
+import FilterPurchaseDocument from "@/views/dashboard/warehousing/purchase-documents/filters";
+import TablePurchaseDocument from "@/views/dashboard/warehousing/purchase-documents/table";
 
-export default function ViewUsers({ data }) {
+export default function ViewPurchaseDocuments({ data }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -21,13 +22,11 @@ export default function ViewUsers({ data }) {
 
   return (
     <>
-      <FilterUser
+      <FilterPurchaseDocument
         refetchData={refetchData}
         searchValue={searchParams.get("search")?.toString()}
-        isActive={searchParams.get("isActive")?.toString()}
-        group={searchParams.get("group")?.toString()}
       />
-      <TableUser data={data} refetchData={refetchData} />
+      <TablePurchaseDocument data={data} refetchData={refetchData} />
     </>
   );
 }

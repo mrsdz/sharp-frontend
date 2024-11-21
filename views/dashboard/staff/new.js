@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useParams } from "next/navigation";
 // auth
-import withAccess from "@/auth/withAccess";
+import withAccess from "@/auth/with-acess";
 // api
 import newUserApi from "@/api/dashboard/store/staff/new";
 // components

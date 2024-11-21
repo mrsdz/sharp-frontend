@@ -7,7 +7,7 @@ import AxiosInstance from "@/api/instance";
 import getToken from "@/auth/get-token";
 import schema from "./schema";
 
-export default async function editUserApi(data, storeId) {
+export default async function editPurchaseDocumentApi(data, id) {
   const validatedFields = schema.safeParse(data);
 
   if (!validatedFields.success) {
@@ -17,12 +17,9 @@ export default async function editUserApi(data, storeId) {
   }
 
   const res = await AxiosInstance.patch(
-    `/api/store/${storeId}/staff/${data.id}/`,
+    `/api/store/${id}/warehousing/purchase_documents/${data.id}/`,
     {
-      display_name: data.display_name,
-      group: data.group,
-      username: data.username,
-      is_active: data.is_active,
+      // TODO: add fields
     },
     {
       headers: { ...(await getToken()) },
@@ -30,7 +27,7 @@ export default async function editUserApi(data, storeId) {
   );
 
   if (res.status === 200) {
-    revalidatePath(`/dashboard/${storeId}/staff`);
+    revalidatePath(`/dashboard/${id}/warehousing/purchase_documents`);
     return { status: 200, data: res.data };
   }
 }

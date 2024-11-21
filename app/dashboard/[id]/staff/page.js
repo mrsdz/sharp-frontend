@@ -2,11 +2,11 @@
 import getStoreStaffs from "@/api/dashboard/store/staff/getStaffs";
 // components
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import NewUser from "@/views/dashboard/users/new";
+import NewUser from "@/views/dashboard/staff/new";
 // views
-import ViewUsers from "@/views/dashboard/users";
+import ViewUsers from "@/views/dashboard/staff";
 
-export default async function Users({ params, searchParams }) {
+export default async function Staff({ params, searchParams }) {
   const id = (await params).id;
   const { page, search, group, countPerPage, isActive } = await searchParams;
 

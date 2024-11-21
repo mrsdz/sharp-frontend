@@ -1,4 +1,4 @@
-import hasAccess from "./hasAccess";
+import hasAccess from "./has-access";
 
 export default function withAccess(Component, requiredPermissions) {
   return (props) => {

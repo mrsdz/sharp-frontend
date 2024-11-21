@@ -1,4 +1,4 @@
-import hasAccess from "@/auth/hasAccess";
+import hasAccess from "@/auth/has-access";
 
 export default function HasAccessComponent({ component, requiredPermissions }) {
   const access = hasAccess(requiredPermissions);

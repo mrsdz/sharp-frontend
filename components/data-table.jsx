@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/table";
 import { DataTablePagination } from "./pagination";
 
-export function DataTable({ columns, data, refetchData }) {
+export function DataTable({ columns, data, refetchData, onRowClick, customHeight = "" }) {
   const table = useReactTable({
     data: data.results,
     columns,
@@ -41,7 +41,7 @@ export function DataTable({ columns, data, refetchData }) {
 
   return (
     <>
-      <div className="rounded-md border">
+      <div className={`rounded-md border overflow-auto ${customHeight}`}>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -65,6 +65,7 @@ export function DataTable({ columns, data, refetchData }) {
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   className="odd:bg-neutral-50 dark:odd:bg-muted/50"
+                  onClick={() => onRowClick?.(row.original)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

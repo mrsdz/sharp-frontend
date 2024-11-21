@@ -25,7 +25,7 @@ const sidebar = [
   },
   {
     name: "کاربران",
-    url: "/users",
+    url: "/staff",
     icon: Users,
     permission: VIEW_STAFF,
   },
@@ -36,7 +36,7 @@ const sidebar = [
     children: [
       {
         name: "اسناد خرید",
-        url: "#",
+        url: "/warehousing/purchase_documents",
         icon: PackagePlus,
       },
       {

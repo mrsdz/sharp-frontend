@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import AxiosInstance from "@/api/instance";
 import schema from "./schema";
 // utils
-import getToken from "@/auth/getToken";
+import getToken from "@/auth/get-token";
 
 export default async function newUserApi(data, id) {
   const validatedFields = schema.safeParse(data);
@@ -20,7 +20,7 @@ export default async function newUserApi(data, id) {
   });
 
   if (res.status === 201) {
-    revalidatePath("/dashboard/:id/users");
+    revalidatePath("/dashboard/:id/staff");
     return { status: 201, data: res.data };
   }
 }

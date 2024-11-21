@@ -55,11 +55,11 @@ export default function FilterUser({
       >
         <div className="flex items-center space-x-2 gap-2">
           <div className="flex items-center gap-1">
-            <Label htmlFor="active">فعال</Label>
+            <Label htmlFor="true">فعال</Label>
             <RadioGroupItem value="true" id="active" />
           </div>
           <div className="flex items-center gap-1">
-            <Label htmlFor="deactivate">غیر‌فعال</Label>
+            <Label htmlFor="false">غیر‌فعال</Label>
             <RadioGroupItem value="false" id="deactivate" />
           </div>
           <div className="flex items-center gap-1">
