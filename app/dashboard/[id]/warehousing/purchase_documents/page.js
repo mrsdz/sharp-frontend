@@ -1,7 +1,7 @@
 // components
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 // views
-import NewPurchaseDocument from "@/views/dashboard/warehousing/purchase-documents/new";
+import NewPurchaseDocument from "@/views/dashboard/warehousing/purchase-documents/new-button";
 import ViewPurchaseDocuments from "@/views/dashboard/warehousing/purchase-documents";
 import FactorsItems from "@/views/dashboard/warehousing/factors-items";
 

@@ -80,6 +80,13 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.8.tgz#21a907684723bbbaa5f0974cf7730bd797eb8e62"
   integrity sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==
 
+"@hassanmojab/react-modern-calendar-datepicker@^3.1.7":
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/@hassanmojab/react-modern-calendar-datepicker/-/react-modern-calendar-datepicker-3.1.7.tgz#e5b8a1a78e0bf9d8001cc46b5b722c47c68975b7"
+  integrity sha512-dX/FXGcvIW31dgA1fcFJkHmIx3k4AqX166SfCQ6weBb0ZLr6C/f5YzcXVop19ifX18ezEw11Xb+l02JGj4+R6g==
+  dependencies:
+    jalaali-js "^1.1.0"
+
 "@humanwhocodes/config-array@^0.13.0":
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.13.0.tgz#fb907624df3256d04b9aa2df50d7aa97ec648748"
@@ -2571,6 +2578,11 @@ jackspeak@^3.1.2:
     "@isaacs/cliui" "^8.0.2"
   optionalDependencies:
     "@pkgjs/parseargs" "^0.11.0"
+
+jalaali-js@^1.1.0:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-1.2.7.tgz#7694cab2d0ca21830766faf08278e71c204cc4fe"
+  integrity sha512-gE+YHWSbygYAoJa+Xg8LWxGILqFOxZSBQQw39ghel01fVFUxV7bjL0x1JFsHcLQ3uPjvn81HQMa+kxwyPWnxGQ==
 
 jiti@^1.21.0:
   version "1.21.6"

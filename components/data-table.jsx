@@ -15,28 +15,37 @@ import {
 } from "@/components/ui/table";
 import { DataTablePagination } from "./pagination";
 
-export function DataTable({ columns, data, refetchData, onRowClick, customHeight = "" }) {
+export function DataTable({
+  columns,
+  data,
+  refetchData,
+  onRowClick,
+  customHeight = "",
+  pagination = true,
+}) {
   const table = useReactTable({
     data: data.results,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    manualPagination: true,
-    getPaginationRowModel: getPaginationRowModel(),
-    onPaginationChange: (updater) => {
-      const newPagination = updater({
-        pageIndex: data.current_page - 1,
-        pageSize: data.count_per_page,
-      });
+    ...(pagination && {
+      manualPagination: true,
+      getPaginationRowModel: getPaginationRowModel(),
+      onPaginationChange: (updater) => {
+        const newPagination = updater({
+          pageIndex: data.current_page - 1,
+          pageSize: data.count_per_page,
+        });
 
-      refetchData({ page: newPagination.pageIndex + 1, countPerPage: newPagination.pageSize });
-    },
-    pageCount: data.total_pages,
-    state: {
-      pagination: {
-        pageIndex: data.current_page - 1,
-        pageSize: data.count_per_page,
+        refetchData({ page: newPagination.pageIndex + 1, countPerPage: newPagination.pageSize });
       },
-    },
+      pageCount: data.total_pages,
+      state: {
+        pagination: {
+          pageIndex: data.current_page - 1,
+          pageSize: data.count_per_page,
+        },
+      },
+    }),
   });
 
   return (
@@ -84,7 +93,7 @@ export function DataTable({ columns, data, refetchData, onRowClick, customHeight
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      {pagination && <DataTablePagination table={table} />}
     </>
   );
 }

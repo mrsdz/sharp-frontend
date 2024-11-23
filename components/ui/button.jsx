@@ -42,7 +42,7 @@ const Button = React.forwardRef(
         {...props}
       >
         {loading ? (
-          <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
         ) : (
           children
         )}
