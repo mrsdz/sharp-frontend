@@ -50,11 +50,9 @@ export default function EditPurchaseDocumentDialog({ open, initialData = null, s
       open={open}
       setOpen={setOpen}
       footer={
-        <>
-          <Button loading={isPending} onClick={handleSubmit} type="submit">
-            ویرایش
-          </Button>
-        </>
+        <Button loading={isPending} onClick={handleSubmit} type="submit">
+          ویرایش
+        </Button>
       }
     >
       <FormUser data={data} setData={handleInput} errors={errors} isEdit={true} />

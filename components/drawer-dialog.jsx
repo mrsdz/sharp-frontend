@@ -20,7 +20,15 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 
-export function DrawerDialog({ title, description, footer, open, setOpen, children }) {
+export function DrawerDialog({
+  title,
+  description,
+  footer,
+  open,
+  setOpen,
+  maxWidthDesktop = "sm:max-w-[425px]",
+  children,
+}) {
   const isMobile = useIsMobile();
 
   if (isMobile) {
@@ -47,7 +55,7 @@ export function DrawerDialog({ title, description, footer, open, setOpen, childr
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className={maxWidthDesktop}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}

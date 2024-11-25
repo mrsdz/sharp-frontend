@@ -5,25 +5,29 @@ import { useParams } from "next/navigation";
 // auth
 import withAccess from "@/auth/with-acess";
 // api
-import newUserApi from "@/api/dashboard/staff/new";
+import newWarehouseApi from "@/api/dashboard/warehousing/warehouse/new";
 // components
 import { Button } from "@/components/ui/button";
 import { DrawerDialog } from "@/components/drawer-dialog";
-import FormUser from "./form";
+import FormWarehouse from "./form";
 // constants
-import { ADD_STAFF } from "@/constants/permissions";
+import { ADD_WAREHOUSE } from "@/constants/permissions";
 
 const initialData = {
-  display_name: "",
-  group: "",
-  username: "",
+  name: "",
+  description: "",
+  phone: "",
+  address: "",
+  users: [],
+  type: "",
+  is_active: true,
 };
 
-function NewUser() {
+function NewWarehouse() {
   const { id } = useParams();
   const [isPending, startTransition] = useTransition();
 
-  const [openNewUser, setOpenNewUser] = useState(false);
+  const [openNewWarehouse, setOpenNewWarehouse] = useState(false);
   const [errors, setError] = useState({});
 
   const [data, setData] = useState(initialData);
@@ -31,12 +35,12 @@ function NewUser() {
   function handleSubmit() {
     startTransition(async () => {
       try {
-        const result = await newUserApi(data, id);
+        const result = await newWarehouseApi(data, id);
 
         if (result?.errors) setError(result.errors);
         else if (result.status === 201) {
           setError({});
-          setOpenNewUser(false);
+          setOpenNewWarehouse(false);
           setData(initialData);
         }
       } catch (error) {
@@ -52,14 +56,15 @@ function NewUser() {
 
   return (
     <>
-      <Button onClick={() => setOpenNewUser(!openNewUser)} size="lg">
+      <Button onClick={() => setOpenNewWarehouse(!openNewWarehouse)} size="lg">
         افزودن
       </Button>
       <DrawerDialog
-        title="افزودن کاربر"
-        description="لطفاً اطلاعات کاربر جدید را وارد کنید."
-        open={openNewUser}
-        setOpen={setOpenNewUser}
+        maxWidthDesktop="sm:max-w-[550px]"
+        title="افزودن انبار"
+        description="لطفاً اطلاعات انبار جدید را وارد کنید."
+        open={openNewWarehouse}
+        setOpen={setOpenNewWarehouse}
         footer={
           <>
             <Button loading={isPending} onClick={handleSubmit} type="submit">
@@ -68,10 +73,10 @@ function NewUser() {
           </>
         }
       >
-        <FormUser data={data} setData={handleInput} errors={errors} />
+        <FormWarehouse data={data} setData={handleInput} errors={errors} />
       </DrawerDialog>
     </>
   );
 }
 
-export default withAccess(NewUser, [ADD_STAFF]);
+export default withAccess(NewWarehouse, [ADD_WAREHOUSE]);

@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 // api
-import getSingleStore from "@/api/dashboard/store/info/getSingleStore";
-import getStores from "@/api/dashboard/store/info/getStores";
+import getSingleStore from "@/api/dashboard/info/getSingleStore";
+import getStores from "@/api/dashboard/info/getStores";
 // components
 import { ChevronsUpDown } from "lucide-react";
 import {

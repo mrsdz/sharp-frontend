@@ -46,7 +46,7 @@ const sidebar = [
       },
       {
         name: "انبار",
-        url: "#",
+        url: "/warehousing/warehouse",
         icon: Package,
       },
     ],

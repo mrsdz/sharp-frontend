@@ -1,5 +1,5 @@
 // api
-import getStores from "@/api/dashboard/store/info/getStores";
+import getStores from "@/api/dashboard/info/getStores";
 // components
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

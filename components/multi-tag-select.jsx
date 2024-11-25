@@ -18,7 +18,7 @@ import { Checkbox } from "./ui/checkbox";
 import { Badge } from "./ui/badge";
 
 // serializers
-import serializeSelectOptions from "@/serializers/multiSelect";
+import serializeSelectOptions from "@/serializers/multi-select";
 
 export default function MultiTagSelect({
   options = [],

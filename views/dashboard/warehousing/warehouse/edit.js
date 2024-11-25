@@ -3,15 +3,15 @@
 import { useEffect, useState, useTransition } from "react";
 import { usePathname } from "next/navigation";
 // api
-import editUserApi from "@/api/dashboard/staff/edit";
+import editWarehouseApi from "@/api/dashboard/warehousing/warehouse/edit";
 // serializer
-import serializeStaffInfo from "@/serializers/staff-info";
+import serializeWarehouseInfo from "@/serializers/warehouse-info";
 // components
 import { Button } from "@/components/ui/button";
 import { DrawerDialog } from "@/components/drawer-dialog";
-import FormUser from "./form";
+import FormWarehouse from "./form";
 
-export default function EditUserDialog({ open, initialData = null, setOpen }) {
+export default function EditWarehouseDialog({ open, initialData = null, setOpen }) {
   const pathname = usePathname();
   const dashboardId = pathname.split("/")[2];
   const [isPending, startTransition] = useTransition();
@@ -23,7 +23,7 @@ export default function EditUserDialog({ open, initialData = null, setOpen }) {
   function handleSubmit() {
     startTransition(async () => {
       try {
-        const result = await editUserApi(data, dashboardId);
+        const result = await editWarehouseApi(data, dashboardId);
 
         if (result?.errors) setError(result.errors);
         else if (result.status === 200) {
@@ -41,12 +41,12 @@ export default function EditUserDialog({ open, initialData = null, setOpen }) {
     setError({ ...errors, [name]: null });
   }
 
-  useEffect(() => setData(serializeStaffInfo(initialData)), [initialData]);
+  useEffect(() => setData(serializeWarehouseInfo(initialData)), [initialData]);
 
   return (
     <DrawerDialog
-      title="ویرایش کاربر"
-      description="لطفاً اطلاعات کاربر را تغییر دهید."
+      title="ویرایش انبار"
+      description="لطفاً اطلاعات انبار را تغییر دهید."
       open={open}
       setOpen={setOpen}
       footer={
@@ -55,7 +55,7 @@ export default function EditUserDialog({ open, initialData = null, setOpen }) {
         </Button>
       }
     >
-      <FormUser data={data} setData={handleInput} errors={errors} isEdit={true} />
+      <FormWarehouse data={data} setData={handleInput} errors={errors} isEdit={true} />
     </DrawerDialog>
   );
 }
