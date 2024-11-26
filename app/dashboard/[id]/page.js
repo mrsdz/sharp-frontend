@@ -5,9 +5,9 @@ import { PieChartSection } from "@/views/dashboard/home/pieChart";
 
 export default function Home() {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="space-y-4">
       <div className="col-span-2">
-        <div className="grid gap-4 grid-cols-4">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between space-y-0 pb-2">
@@ -58,8 +58,10 @@ export default function Home() {
           </Card>
         </div>
       </div>
-      <LineChartSection />
-      <PieChartSection />
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+        <LineChartSection />
+        <PieChartSection />
+      </div>
     </div>
   );
 }

@@ -22,6 +22,7 @@ const sidebar = [
     url: "/",
     icon: Home,
     permission: VIEW_STAFF,
+    isIndex: true,
   },
   {
     name: "کاربران",

@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { PanelRight } from "lucide-react";
@@ -9,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -110,7 +111,9 @@ const SidebarProvider = React.forwardRef(
               ...style,
             }}
             className={cn(
-              "group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar",
+              `group/sidebar-wrapper min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar ${
+                isMobile ? "" : "flex"
+              }`,
               className
             )}
             ref={ref}
@@ -160,12 +163,16 @@ const Sidebar = React.forwardRef(
           <SheetContent
             data-sidebar="sidebar"
             data-mobile="true"
-            className="w-[--sidebar-width] bg-background p-0 text-sidebar-foreground [&>button]:hidden"
+            className=" bg-background p-0 text-sidebar-foreground [&>button]:hidden"
             style={{
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
             }}
             side={side}
           >
+            <VisuallyHidden.Root>
+              <SheetTitle>Sidebar</SheetTitle>
+              <SheetDescription>Sidebar description</SheetDescription>
+            </VisuallyHidden.Root>
             <div className="flex h-full w-full flex-col">{children}</div>
           </SheetContent>
         </Sheet>

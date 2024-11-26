@@ -9,14 +9,14 @@ export default function FilterWarehouse({ searchValue = "", isActive = "both", r
   const debouncedSearch = useDebounce((data) => refetchData({ search: data }), 300);
 
   return (
-    <div className="flex items-center gap-4 mb-4">
+    <div className="flex items-center gap-4 mb-4 flex-col md:flex-row">
       <Input
         placeholder="جستجو انبارها..."
-        className="w-fit"
+        className="w-full md:w-fit"
         defaultValue={searchValue}
         onChange={(e) => debouncedSearch(e.target.value)}
       />
-      <div className="w-[1px] h-6 bg-neutral-200 mx-2" />
+      <div className="w-[1px] h-6 bg-neutral-200 mx-2 hidden md:block" />
       <RadioGroup
         defaultValue={isActive}
         onValueChange={(value) => refetchData({ isActive: value })}

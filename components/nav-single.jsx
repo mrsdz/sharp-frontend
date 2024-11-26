@@ -9,7 +9,11 @@ function NavSingle({ item, dashboardId }) {
   return (
     <SidebarMenuItem>
       <SidebarMenuButton
-        isActive={pathname === `/dashboard/${dashboardId}${item.url}`}
+        isActive={
+          item.isIndex && pathname === `/dashboard/${dashboardId}`
+            ? true
+            : pathname === `/dashboard/${dashboardId}${item.url}`
+        }
         asChild
         size="lg"
       >

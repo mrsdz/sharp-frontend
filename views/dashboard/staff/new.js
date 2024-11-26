@@ -52,7 +52,7 @@ function NewUser() {
 
   return (
     <>
-      <Button onClick={() => setOpenNewUser(!openNewUser)} size="lg">
+      <Button onClick={() => setOpenNewUser(!openNewUser)} size="lg" className="w-full md:w-auto">
         افزودن
       </Button>
       <DrawerDialog

@@ -14,7 +14,7 @@ export default async function Staff({ params, searchParams }) {
 
   return (
     <Card className="shadow-none">
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-col items-center justify-between gap-1.5 md:flex-row">
         <div className="flex flex-col gap-1.5">
           <CardTitle>لیست کاربران</CardTitle>
           <CardDescription>

@@ -11,7 +11,7 @@ import {
 
 export function DataTablePagination({ table }) {
   return (
-    <div dir="rtl" className="flex items-center justify-between mt-4">
+    <div dir="rtl" className="flex items-center justify-between mt-4 flex-col gap-4 md:flex-row">
       <div className="flex items-center gap-1">
         <Button
           variant="outline"

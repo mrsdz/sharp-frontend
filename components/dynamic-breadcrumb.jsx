@@ -26,6 +26,7 @@ const DynamicBreadcrumb = () => {
     // warehousing
     warehousing: "انبارداری",
     purchase_documents: "اسناد خرید",
+    warehouse: "انبار",
   };
 
   const skipSegments = ["warehousing"];

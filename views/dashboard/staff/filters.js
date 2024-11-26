@@ -29,10 +29,10 @@ export default function FilterUser({
   }, []);
 
   return (
-    <div className="flex items-center gap-4 mb-4">
+    <div className="flex items-center gap-4 mb-4 flex-col md:flex-row">
       <Input
         placeholder="جستجو کاربران..."
-        className="w-fit"
+        className="w-full md:w-fit"
         defaultValue={searchValue}
         onChange={(e) => debouncedSearch(e.target.value)}
       />
@@ -48,7 +48,7 @@ export default function FilterUser({
         }
         setValues={(value) => refetchData({ group: value.map((item) => item.value).join(",") })}
       />
-      <div className="w-[1px] h-6 bg-neutral-200 mx-2" />
+      <div className="w-[1px] h-6 bg-neutral-200 mx-2 hidden md:block" />
       <RadioGroup
         defaultValue={isActive}
         onValueChange={(value) => refetchData({ isActive: value })}

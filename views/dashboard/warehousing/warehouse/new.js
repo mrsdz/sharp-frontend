@@ -56,7 +56,11 @@ function NewWarehouse() {
 
   return (
     <>
-      <Button onClick={() => setOpenNewWarehouse(!openNewWarehouse)} size="lg">
+      <Button
+        onClick={() => setOpenNewWarehouse(!openNewWarehouse)}
+        size="lg"
+        className="w-full md:w-auto"
+      >
         افزودن
       </Button>
       <DrawerDialog

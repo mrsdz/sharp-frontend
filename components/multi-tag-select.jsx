@@ -63,7 +63,7 @@ export default function MultiTagSelect({
           variant="outlined"
           role="combobox"
           aria-expanded={open}
-          className="w-fit h-9 gap-2 border border-input border-dashed hover:bg-accent"
+          className="w-full md:w-fit h-9 gap-2 border border-input border-dashed hover:bg-accent"
         >
           <PlusCircle width={16} height={16} className="text-muted-foreground" />
           <span className="text-muted-foreground mt-0.5">{placeholder}</span>
