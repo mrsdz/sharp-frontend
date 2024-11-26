@@ -40,7 +40,7 @@ const sidebar = [
         icon: PackagePlus,
       },
       {
-        name: "اسناد فروش",
+        name: "اسناد فروش (به زودی)",
         url: "#",
         icon: PackageMinus,
       },
@@ -52,25 +52,25 @@ const sidebar = [
     ],
   },
   {
-    name: "نسخ",
+    name: "نسخ (به زودی)",
     url: "/404",
     icon: ScrollText,
     permission: VIEW_STAFF,
   },
   {
-    name: "گزارشات",
+    name: "گزارشات (به زودی)",
     url: "/404",
     icon: ChartArea,
     permission: VIEW_STAFF,
   },
   {
-    name: "حسابداری",
+    name: "حسابداری (به زودی)",
     url: "/404",
     icon: HandCoins,
     permission: VIEW_STAFF,
   },
   {
-    name: "سازمان‌های بیمه",
+    name: "سازمان‌های بیمه (به زودی)",
     url: "/404",
     icon: Umbrella,
     permission: VIEW_STAFF,

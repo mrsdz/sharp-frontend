@@ -15,7 +15,7 @@ export default function Home() {
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
               </div>
               <div className="space-y-1">
-                <h2 className="text-2xl font-bold tracking-tight">$45,231.89</h2>
+                <h2 className="text-2xl font-bold tracking-tight">425,764,413 تومان</h2>
                 <p className="text-xs text-muted-foreground">+%20.1 از ماه قبل</p>
               </div>
             </CardContent>
@@ -23,7 +23,7 @@ export default function Home() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between space-y-0 pb-2">
-                <p className="text-sm font-medium text-muted-foreground">کارمندان</p>
+                <p className="text-sm font-medium text-muted-foreground">مشتریان</p>
                 <Users className="h-4 w-4 text-muted-foreground" />
               </div>
               <div className="space-y-1">
@@ -39,7 +39,7 @@ export default function Home() {
                 <CreditCard className="h-4 w-4 text-muted-foreground" />
               </div>
               <div className="space-y-1">
-                <h2 className="text-2xl font-bold tracking-tight">+12,234</h2>
+                <h2 className="text-2xl font-bold tracking-tight">+123</h2>
                 <p className="text-xs text-muted-foreground">+19% از ماه قبل</p>
               </div>
             </CardContent>

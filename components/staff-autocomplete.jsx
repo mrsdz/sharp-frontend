@@ -6,11 +6,13 @@ import { Command } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import StaffSearch from "@/components/staff-search";
 
+// make this components multi and single
+
 export default function StaffAutocomplete({
   placeholder = "select_user",
   onChange = () => null,
   value = "",
-  popupWidth = "w-[279px]",
+  popupWidth = "w-[371px]",
   size,
 }) {
   const [open, setOpen] = useState(false);
@@ -24,8 +26,10 @@ export default function StaffAutocomplete({
           aria-expanded={open}
           className={`w-full justify-between min-w-[180px] ${size === "small" ? "h-10" : "h-12"}`}
         >
-          {value ? (
-            value.display_name
+          {value.length ? (
+            value.map(
+              (item, index) => `${item.display_name}${index !== value.length - 1 ? "، " : ""}`
+            )
           ) : (
             <span className="text-muted-foreground">{placeholder}</span>
           )}

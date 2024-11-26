@@ -76,7 +76,7 @@ export default function TableWarehouse({ data = { results: [], current_page: 1 }
             header: "کاربران",
             cell: ({ getValue }) =>
               getValue().length
-                ? getValue().map((user) => <Badge variant="secondary">{user.display_name}</Badge>)
+                ? getValue().map((user) => <Badge className="mx-0.5" key={user.id} variant="secondary">{user.display_name}</Badge>)
                 : "-",
           },
           {

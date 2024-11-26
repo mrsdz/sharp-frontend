@@ -89,7 +89,7 @@ export function StoreSwitcher() {
                     <StoreAvatar image={store.logo.file} name={store.name} />
                   </div>
                   {store.name}
-                  <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                  {/* <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut> */}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
