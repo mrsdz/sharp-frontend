@@ -1,10 +1,11 @@
 "use server";
 
-import AxiosInstance from "@/api/instance";
 import getToken from "@/auth/get-token";
+import { urls } from "@/api/urls";
 
 export default async function getGroups() {
-  return await AxiosInstance.get("/api/staff/group/", { headers: { ...(await getToken()) } }).then(
-    ({ data }) => data
-  );
+  return await fetch(urls.groups, {
+    headers: { ...(await getToken()) },
+    cache: "force-cache",
+  }).then((res) => res.json());
 }

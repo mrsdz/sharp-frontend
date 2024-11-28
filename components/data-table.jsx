@@ -22,6 +22,8 @@ export function DataTable({
   onRowClick,
   customHeight = "",
   pagination = true,
+  tableCellClassName = "",
+  tableHeaderClassName = "",
 }) {
   const table = useReactTable({
     data: data.results,
@@ -57,7 +59,7 @@ export function DataTable({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead className={tableHeaderClassName} key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(header.column.columnDef.header, header.getContext())}
@@ -77,7 +79,7 @@ export function DataTable({
                   onClick={() => onRowClick?.(row.original)}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell className={tableCellClassName} key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}

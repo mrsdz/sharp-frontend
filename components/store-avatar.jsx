@@ -1,7 +1,7 @@
 // components
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 // utils
-import getFirstLetters from "@/utils/firstLetters";
+import getFirstLetters from "@/utils/first-letters";
 
 export default function StoreAvatar({ image, name }) {
   return (

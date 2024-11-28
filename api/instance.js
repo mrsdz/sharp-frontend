@@ -5,7 +5,6 @@ const AxiosInstance = axios.create({
   headers: {
     "Content-type": "application/json",
   },
-  adapter: "fetch",
 });
 
 export default AxiosInstance;

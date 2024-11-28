@@ -11,7 +11,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 // helper
-import validateToken from "@/utils/validateToken";
+import validateToken from "@/utils/validate-token";
 
 const DynamicBreadcrumb = () => {
   const pathname = usePathname();
@@ -36,19 +36,22 @@ const DynamicBreadcrumb = () => {
       <BreadcrumbList>
         {pathSegments.map((segment, index) => {
           // Skip the ID segment in the breadcrumb text
-          if (index === 1 && validateToken(segment) || skipSegments.includes(segment)) return null;
+          if ((index === 1 && validateToken(segment)) || skipSegments.includes(segment))
+            return null;
 
           const href = `/dashboard/${dashboardId}/` + pathSegments.slice(2, index + 1).join("/");
 
           const isLast = index === pathSegments.length - 1;
 
+          const segmentName = Number(segment) ? segment : segmentNames[segment] || "";
+
           return (
             <Fragment key={segment}>
               <BreadcrumbItem className={isLast ? "" : "hidden md:block"}>
                 {isLast ? (
-                  <BreadcrumbPage>{segmentNames[segment] || ""}</BreadcrumbPage>
+                  <BreadcrumbPage>{segmentName}</BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink href={href}>{segmentNames[segment] || ""}</BreadcrumbLink>
+                  <BreadcrumbLink href={href}>{segmentName}</BreadcrumbLink>
                 )}
               </BreadcrumbItem>
               {!isLast && pathSegments.length > 2 && <BreadcrumbSeparator />}

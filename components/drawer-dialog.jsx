@@ -27,6 +27,7 @@ export function DrawerDialog({
   open,
   setOpen,
   maxWidthDesktop = "sm:max-w-[425px]",
+  preventAutoFocus = false,
   children,
 }) {
   const isMobile = useIsMobile();
@@ -55,7 +56,10 @@ export function DrawerDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className={maxWidthDesktop}>
+      <DialogContent
+        className={maxWidthDesktop}
+        {...(preventAutoFocus && { onOpenAutoFocus: (e) => e.preventDefault() })}
+      >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}

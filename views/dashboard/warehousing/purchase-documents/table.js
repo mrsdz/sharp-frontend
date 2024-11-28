@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useAppStore } from "@/store/provider-store";
+// next
+import { useRouter } from "next/navigation";
 // components
 import { DataTable } from "@/components/data-table";
 import { Button } from "@/components/ui/button";
@@ -13,25 +15,22 @@ import {
 import HasAccessComponent from "@/components/has-access-component";
 import { Edit3, MoreVertical, Trash2Icon } from "lucide-react";
 // views
-import EditPurchaseDocumentDialog from "./edit";
 import DeletePurchaseDocumentDialog from "./delete";
 // constants
 import { EDIT_PURCHASE_DOCUMENT, DELETE_PURCHASE_DOCUMENT } from "@/constants/permissions";
+// utils
+import gregorianToJalali from "@/utils/gregorian-to-jalali";
 
 const initialDeleteData = { open: false, id: null };
-const initialEditData = {
-  open: false,
-  data: {},
-};
 
 export default function TablePurchaseDocument({
   data = { results: [], current_page: 1 },
   refetchData,
 }) {
+  const router = useRouter();
   const { selectedPurchaseDocument, setSelectedPurchaseDocument } = useAppStore((state) => state);
 
   const [openDeletePurchaseDocument, setOpenDeletePurchaseDocument] = useState(initialDeleteData);
-  const [openEditPurchaseDocument, setOpenEditPurchaseDocument] = useState(initialEditData);
 
   return (
     <>
@@ -51,6 +50,7 @@ export default function TablePurchaseDocument({
           {
             accessorKey: "date",
             header: "تاریخ",
+            cell: ({ row: { original } }) => gregorianToJalali(original.date),
           },
           {
             accessorKey: "total_price",
@@ -89,7 +89,11 @@ export default function TablePurchaseDocument({
                   <HasAccessComponent
                     component={
                       <DropdownMenuItem
-                        onClick={() => setOpenEditPurchaseDocument({ open: true, data: original })}
+                        onClick={() =>
+                          router.push(
+                            `/dashboard/${original.store}/warehousing/purchase_documents/${original.id}`
+                          )
+                        }
                       >
                         <Edit3 />
                         ویرایش
@@ -123,11 +127,6 @@ export default function TablePurchaseDocument({
         open={openDeletePurchaseDocument.open}
         id={openDeletePurchaseDocument.id}
         setOpen={() => setOpenDeletePurchaseDocument(initialDeleteData)}
-      />
-      <EditPurchaseDocumentDialog
-        open={openEditPurchaseDocument.open}
-        initialData={openEditPurchaseDocument.data}
-        setOpen={() => setOpenEditPurchaseDocument(initialEditData)}
       />
     </>
   );

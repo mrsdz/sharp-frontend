@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const schema = z.object({
-  // TODO: add fields
+  serial_number: z.string().min(1),
 });
 
 export default schema;

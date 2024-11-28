@@ -14,10 +14,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-
-// views
-import TableAddPurchaseDocument from "@/views/dashboard/warehousing/purchase-documents/new/table";
 import { Button } from "@/components/ui/button";
+// views
+import TableAddPurchaseDocument from "@/views/dashboard/warehousing/purchase-documents/edit/table";
+
+const initialItems = {
+  id: 1,
+  barcode: "",
+  product_code: "",
+  latin_name: "",
+  count: "",
+  total_price: "",
+  discount_price: "",
+  warehouse: "",
+  buy_price: "",
+  sell_price_with_tax: "",
+  sell_price_without_tax: "",
+  profit: "",
+  profit_percentage: "",
+  refundable: "",
+  tax: "",
+};
 
 export default function AddPurchaseDocument() {
   const [data, setData] = useState({
@@ -29,10 +46,9 @@ export default function AddPurchaseDocument() {
     partner_national_code: "",
     default_warehouse: "",
     description: "",
+    items: [initialItems],
   });
   const [errors, setErrors] = useState({});
-
-  console.log(data);
 
   return (
     <>
@@ -159,33 +175,33 @@ export default function AddPurchaseDocument() {
           </CardHeader>
           <CardContent>
             <ul className="flex flex-col">
-              <li className="flex justify-between border-b py-2 border-stone-200">
-                <span>۱۰٪ مالیات</span>
-                <span>100,000</span>
+              <li className="flex justify-between border-b py-2 border-muted text-sm">
+                <span className="text-muted-foreground">۱۰٪ مالیات</span>
+                <span className="font-bold">100,000</span>
               </li>
-              <li className="flex justify-between border-b py-2 border-stone-200">
-                <span>تخفیف کلی</span>
-                <span>10,000</span>
+              <li className="flex justify-between border-b py-2 border-muted text-sm">
+                <span className="text-muted-foreground">تخفیف کلی</span>
+                <span className="font-bold">10,000</span>
               </li>
-              <li className="flex justify-between border-b py-2 border-stone-200">
-                <span>افزایش قیمت</span>
-                <span>110,000</span>
+              <li className="flex justify-between border-b py-2 border-muted text-sm">
+                <span className="text-muted-foreground">افزایش قیمت</span>
+                <span className="font-bold">110,000</span>
               </li>
-              <li className="flex justify-between border-b py-2 border-stone-200">
-                <span>پرداخت شده</span>
-                <span>110,000</span>
+              <li className="flex justify-between border-b py-2 border-muted text-sm">
+                <span className="text-muted-foreground">پرداخت شده</span>
+                <span className="font-bold">110,000</span>
               </li>
-              <li className="flex justify-between border-b py-2 border-stone-200">
-                <span>جمع اقلام</span>
-                <span>110,000</span>
+              <li className="flex justify-between border-b py-2 border-muted text-sm">
+                <span className="text-muted-foreground">جمع اقلام</span>
+                <span className="font-bold">110,000</span>
               </li>
-              <li className="flex justify-between border-b py-2 border-stone-200">
-                <span>جمع کل</span>
-                <span>110,000</span>
+              <li className="flex justify-between border-b py-2 border-muted text-sm">
+                <span className="text-muted-foreground">جمع کل</span>
+                <span className="font-bold">110,000</span>
               </li>
-              <li className="flex justify-between py-2">
-                <span>قابل پرداخت</span>
-                <span>110,000</span>
+              <li className="flex justify-between py-2 text-sm">
+                <span className="text-muted-foreground">قابل پرداخت</span>
+                <span className="font-bold">110,000</span>
               </li>
             </ul>
           </CardContent>
@@ -193,10 +209,24 @@ export default function AddPurchaseDocument() {
       </div>
       <Card className="shadow-none">
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>مشخصات اقلام</CardTitle>
+          <CardTitle>لیست اقلام</CardTitle>
+          <Button
+            onClick={() =>
+              setData({
+                ...data,
+                items: [...data.items, { ...initialItems, id: data.items.length + 1 }],
+              })
+            }
+          >
+            افزودن
+          </Button>
         </CardHeader>
         <CardContent>
-          <TableAddPurchaseDocument />
+          <TableAddPurchaseDocument
+            data={{ results: data.items }}
+            onDataChange={(items) => setData({ ...data, items })}
+            errors={errors}
+          />
         </CardContent>
       </Card>
       <div className="flex justify-between gap-2">
