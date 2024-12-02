@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import useDebounce from "@/hooks/use-debounce";
 // api
-import getGroups from "@/api/cms/getGroups";
+import getGroups from "@/api/cms/get-groups";
 // components
 import MultiTagSelect from "@/components/multi-tag-select";
 import { Label } from "@/components/ui/label";

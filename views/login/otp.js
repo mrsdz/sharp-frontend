@@ -1,9 +1,8 @@
 import { useRouter } from "next/navigation";
 import { useTransition, useState, useEffect, useRef } from "react";
 //api
-import sendOtp from "@/api/login/sendOtp";
-import verifyOtp from "@/api/login/verifyOtp";
-import AxiosInstance from "@/api/instance";
+import sendOtp from "@/api/login/send-otp";
+import verifyOtp from "@/api/login/verify-otp";
 // hooks
 import useTimer from "@/hooks/use-timer";
 // components

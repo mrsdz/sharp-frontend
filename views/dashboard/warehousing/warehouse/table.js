@@ -113,7 +113,7 @@ export default function TableWarehouse({ data = { results: [], current_page: 1 }
                     component={
                       <DropdownMenuItem
                         onClick={() => setOpenDeleteWarehouse({ open: true, id: original.id })}
-                        className="text-destructive"
+                        className="text-destructive hover:text-destructive"
                       >
                         <Trash2Icon />
                         حذف

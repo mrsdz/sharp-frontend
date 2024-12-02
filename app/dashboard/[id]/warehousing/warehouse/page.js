@@ -12,8 +12,6 @@ export default async function WarehousePage({ params, searchParams }) {
 
   const data = await getWarehouses({ id, page, search, isActive, countPerPage });
 
-  console.log(data);
-
   return (
     <Card className="shadow-none">
       <CardHeader className="flex flex-col items-center justify-between gap-1.5 md:flex-row">

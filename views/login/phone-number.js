@@ -1,6 +1,6 @@
 import { useState, useTransition } from "react";
 // api
-import sendOtp from "@/api/login/sendOtp";
+import sendOtp from "@/api/login/send-otp";
 // components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

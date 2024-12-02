@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 // auth
 import withAccess from "@/auth/with-acess";
 // api
@@ -21,7 +21,6 @@ const initialData = {
 
 function NewPurchaseDocument() {
   const { id } = useParams();
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const [openNewPurchaseDocument, setOpenNewPurchaseDocument] = useState(false);
@@ -29,18 +28,12 @@ function NewPurchaseDocument() {
 
   const [data, setData] = useState(initialData);
 
-  function handleSubmit() {
+  async function handleSubmit() {
     startTransition(async () => {
       try {
-        const result = await (data, id);
+        const result = await newPurchaseDocumentApi(data, id);
 
         if (result?.errors) setError(result.errors);
-        else if (result.status === 201) {
-          setError({});
-          setOpenNewPurchaseDocument(false);
-          setData(initialData);
-          router.push(`/dashboard/${id}/warehousing/purchase-documents/${result.data.id}`);
-        }
       } catch (error) {
         console.log(error);
       }
@@ -69,7 +62,7 @@ function NewPurchaseDocument() {
         preventAutoFocus
         footer={
           <>
-            <Button loading={isPending} onClick={newPurchaseDocumentApi} type="submit">
+            <Button loading={isPending} onClick={handleSubmit} type="submit">
               افزودن
             </Button>
           </>

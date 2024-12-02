@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // api
-import getGroups from "@/api/cms/getGroups";
+import getGroups from "@/api/cms/get-groups";
 // components
 import {
   Select,

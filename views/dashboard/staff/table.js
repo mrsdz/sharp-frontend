@@ -101,7 +101,7 @@ export default function TableUser({ data = { results: [], current_page: 1 }, ref
                       component={
                         <DropdownMenuItem
                           onClick={() => setOpenDeleteUser({ open: true, id: original.id })}
-                          className="text-destructive"
+                          className="text-destructive hover:text-destructive"
                         >
                           <Trash2Icon />
                           حذف

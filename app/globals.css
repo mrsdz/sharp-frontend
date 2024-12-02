@@ -92,3 +92,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.DatePicker {
+  z-index: 30 !important;
+}

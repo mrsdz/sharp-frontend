@@ -1,65 +1,38 @@
 "use client";
+import deletePurchaseDocumentItem from "@/api/dashboard/warehousing/purchase-documents/items/delete";
 // components
 import { DataTable } from "@/components/data-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 // icons
 import { Trash2Icon } from "lucide-react";
 
-export default function TableAddPurchaseDocument({
-  data = { results: [] },
-  onDataChange = () => {},
-}) {
-  const handleDataChange = (id, key, value) => {
-    const newData = data.results.map((item) => (item.id === id ? { ...item, [key]: value } : item));
-    onDataChange(newData);
-  };
-
+export default function TableAddPurchaseDocument({ data, handleDataChange }) {
   return (
     <>
       <DataTable
         tableHeaderClassName="text-center text-xs"
-        tableCellClassName="p-1 border-l border-muted text-center"
+        tableCellClassName="p-1 border-l border-border text-center"
         columns={[
           {
             header: "#",
             cell: ({ row: { index } }) => index + 1,
           },
           {
-            accessorKey: "barcode",
+            accessorKey: "generic_code",
             header: "بارکد",
-            cell: ({ row: { original } }) => (
-              <Input
-                type="text"
-                className="border-none focus-visible:ring-0"
-                defaultValue={original.barcode}
-                onBlur={(e) => handleDataChange(original.id, "barcode", e.target.value)}
-              />
-            ),
+            cell: ({ row: { original } }) => original.item.generic_code,
           },
           {
-            accessorKey: "product_code",
+            accessorKey: "gtin",
             header: "کد کالا",
-            cell: ({ row: { original } }) => (
-              <Input
-                type="text"
-                className="border-none focus-visible:ring-0 "
-                defaultValue={original.product_code}
-                onBlur={(e) => handleDataChange(original.id, "product_code", e.target.value)}
-              />
-            ),
+            cell: ({ row: { original } }) => original.item.gtin,
           },
           {
             accessorKey: "latin_name",
             header: "نام لاتین",
-            cell: ({ row: { original } }) => (
-              <Input
-                type="text"
-                className="border-none focus-visible:ring-0"
-                defaultValue={original.latin_name}
-                onBlur={(e) => handleDataChange(original.id, "latin_name", e.target.value)}
-              />
-            ),
+            cell: ({ row: { original } }) => original.item.latin_name,
           },
           {
             accessorKey: "count",
@@ -67,7 +40,7 @@ export default function TableAddPurchaseDocument({
             cell: ({ row: { original } }) => (
               <Input
                 type="text"
-                className="border-none focus-visible:ring-0"
+                className="border-none focus-visible:ring-0 px-1 text-center"
                 defaultValue={original.count}
                 onBlur={(e) => handleDataChange(original.id, "count", e.target.value)}
               />
@@ -79,33 +52,33 @@ export default function TableAddPurchaseDocument({
             cell: ({ row: { original } }) => (
               <Input
                 type="text"
-                className="border-none focus-visible:ring-0"
+                className="border-none focus-visible:ring-0 px-1 text-center"
                 defaultValue={original.total_price}
                 onBlur={(e) => handleDataChange(original.id, "total_price", e.target.value)}
               />
             ),
           },
           {
-            accessorKey: "discount_price",
+            accessorKey: "discount",
             header: "تخفیف خرید",
             cell: ({ row: { original } }) => (
               <Input
                 type="text"
-                className="border-none focus-visible:ring-0"
-                defaultValue={original.discount_price}
-                onBlur={(e) => handleDataChange(original.id, "discount_price", e.target.value)}
+                className="border-none focus-visible:ring-0 px-1 text-center"
+                defaultValue={original.discount}
+                onBlur={(e) => handleDataChange(original.id, "discount", e.target.value)}
               />
             ),
           },
           {
-            accessorKey: "warehouse",
+            accessorKey: "section",
             header: "انبار",
             cell: ({ row: { original } }) => (
               <Input
                 type="text"
-                className="border-none focus-visible:ring-0"
-                defaultValue={original.warehouse}
-                onBlur={(e) => handleDataChange(original.id, "warehouse", e.target.value)}
+                className="border-none focus-visible:ring-0 px-1 text-center"
+                defaultValue={original.section}
+                onBlur={(e) => handleDataChange(original.id, "section", e.target.value)}
               />
             ),
           },
@@ -115,7 +88,7 @@ export default function TableAddPurchaseDocument({
             cell: ({ row: { original } }) => (
               <Input
                 type="text"
-                className="border-none focus-visible:ring-0"
+                className="border-none focus-visible:ring-0 px-1 text-center"
                 defaultValue={original.buy_price}
                 onBlur={(e) => handleDataChange(original.id, "buy_price", e.target.value)}
               />
@@ -127,71 +100,67 @@ export default function TableAddPurchaseDocument({
             cell: ({ row: { original } }) => (
               <Input
                 type="text"
-                className="border-none focus-visible:ring-0"
+                className="border-none focus-visible:ring-0 px-1 text-center"
                 defaultValue={original.sell_price_with_tax}
                 onBlur={(e) => handleDataChange(original.id, "sell_price_with_tax", e.target.value)}
               />
             ),
           },
           {
-            accessorKey: "sell_price_without_tax",
+            accessorKey: "sell_price",
             header: "فی فروش بدون مالیات",
             cell: ({ row: { original } }) => (
               <Input
                 type="text"
-                className="border-none focus-visible:ring-0"
-                defaultValue={original.sell_price_without_tax}
-                onBlur={(e) =>
-                  handleDataChange(original.id, "sell_price_without_tax", e.target.value)
-                }
+                className="border-none focus-visible:ring-0 px-1 text-center"
+                defaultValue={original.sell_price}
+                onBlur={(e) => handleDataChange(original.id, "sell_price", e.target.value)}
               />
             ),
           },
           {
-            accessorKey: "profit",
+            accessorKey: "profit_in_price",
             header: "سود (ریال)",
             cell: ({ row: { original } }) => (
               <Input
                 type="text"
-                className="border-none focus-visible:ring-0"
-                defaultValue={original.profit}
-                onBlur={(e) => handleDataChange(original.id, "profit", e.target.value)}
+                className="border-none focus-visible:ring-0 px-1 text-center"
+                defaultValue={original.profit_in_price}
+                onBlur={(e) => handleDataChange(original.id, "profit_in_price", e.target.value)}
               />
             ),
           },
           {
-            accessorKey: "profit_percentage",
+            accessorKey: "profit_in_percent",
             header: "سود (درصد)",
             cell: ({ row: { original } }) => (
               <Input
                 type="text"
-                className="border-none focus-visible:ring-0"
-                defaultValue={original.profit_percentage}
-                onBlur={(e) => handleDataChange(original.id, "profit_percentage", e.target.value)}
+                className="border-none focus-visible:ring-0 px-1 text-center"
+                defaultValue={original.profit_in_percent}
+                onBlur={(e) => handleDataChange(original.id, "profit_in_percent", e.target.value)}
               />
             ),
           },
           {
-            accessorKey: "refundable",
+            accessorKey: "return_count",
             header: "مرجوعی",
             cell: ({ row: { original } }) => (
               <Input
                 type="text"
-                className="border-none focus-visible:ring-0"
-                defaultValue={original.refundable}
-                onBlur={(e) => handleDataChange(original.id, "refundable", e.target.value)}
+                className="border-none focus-visible:ring-0 px-1 text-center"
+                defaultValue={original.return_count}
+                onBlur={(e) => handleDataChange(original.id, "return_count", e.target.value)}
               />
             ),
           },
           {
-            accessorKey: "tax",
+            accessorKey: "tax_included",
             header: "مالیات",
             cell: ({ row: { original } }) => (
-              <Input
-                type="text"
-                className="border-none focus-visible:ring-0"
-                defaultValue={original.tax}
-                onBlur={(e) => handleDataChange(original.id, "tax", e.target.value)}
+              <Checkbox
+                checked={original.tax_included}
+                onCheckedChange={(e) => handleDataChange(original.id, "tax_included", e)}
               />
             ),
           },
@@ -200,7 +169,9 @@ export default function TableAddPurchaseDocument({
             cell: ({ row: { original } }) => (
               <Button
                 variant="ghost"
-                onClick={() => onDataChange(data.results.filter((item) => item.id !== original.id))}
+                onClick={() =>
+                  deletePurchaseDocumentItem({ storeId, purchaseDocumentId, itemId: original.id })
+                }
                 size="sm"
                 className="text-destructive hover:text-destructive"
               >
@@ -209,7 +180,7 @@ export default function TableAddPurchaseDocument({
             ),
           },
         ]}
-        data={data}
+        data={{ results: data }}
         pagination={false}
       />
     </>

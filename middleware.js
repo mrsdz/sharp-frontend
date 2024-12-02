@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import getUserPermissions from "@/api/user/getUserPermissions";
+import getUserPermissions from "@/api/user/get-user-permissions";
 import { PROTECTED_ROUTES } from "@/constants/permissions";
 
 // Helper functions to improve readability and maintainability

@@ -1,4 +1,4 @@
-import getUserInfo from "@/api/user/getInfo";
+import getUserInfo from "@/api/user/get-info";
 // components
 import { AppSidebar } from "@/components/app-sidebar";
 import { Separator } from "@/components/ui/separator";

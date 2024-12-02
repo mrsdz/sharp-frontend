@@ -13,7 +13,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import HasAccessComponent from "@/components/has-access-component";
-import { Edit3, MoreVertical, Trash2Icon } from "lucide-react";
+import { Edit3, Eye, MoreVertical, Trash2Icon } from "lucide-react";
 // views
 import DeletePurchaseDocumentDialog from "./delete";
 // constants
@@ -36,7 +36,6 @@ export default function TablePurchaseDocument({
     <>
       <DataTable
         customHeight={selectedPurchaseDocument ? "h-[200px]" : ""}
-        onRowClick={({ id }) => setSelectedPurchaseDocument(id)}
         columns={[
           { header: "#", cell: ({ row: { index } }) => index + 1 },
           {
@@ -86,6 +85,10 @@ export default function TablePurchaseDocument({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => setSelectedPurchaseDocument(original.id)}>
+                    <Eye />
+                    مشاهده اقلام
+                  </DropdownMenuItem>
                   <HasAccessComponent
                     component={
                       <DropdownMenuItem
@@ -107,7 +110,7 @@ export default function TablePurchaseDocument({
                         onClick={() =>
                           setOpenDeletePurchaseDocument({ open: true, id: original.id })
                         }
-                        className="text-destructive"
+                        className="text-destructive hover:text-destructive"
                       >
                         <Trash2Icon />
                         حذف
