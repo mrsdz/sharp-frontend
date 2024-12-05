@@ -6,7 +6,9 @@ export default function FormPurchaseDocument({ errors, data, setData }) {
   return (
     <div className="grid gap-4 py-4">
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor="date">تاریخ صدور</Label>
+        <Label htmlFor="date">
+          تاریخ صدور <span className="text-red-500">*</span>
+        </Label>
         <div className="col-span-3">
           <CustomDatePicker
             selectedDay={data.date}
@@ -19,7 +21,7 @@ export default function FormPurchaseDocument({ errors, data, setData }) {
       </div>
       <div className="grid grid-cols-4 items-center gap-4">
         <Label htmlFor="description" className="text-right">
-          توضیحات
+          توضیحات <span className="text-red-500">*</span>
         </Label>
         <div className="col-span-3">
           <Textarea

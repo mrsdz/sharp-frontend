@@ -41,39 +41,47 @@ export default function TablePurchaseDocument({
           {
             accessorKey: "serial_number",
             header: "سریال سند",
+            cell: ({ getValue }) => getValue() || "-",
           },
           {
             accessorKey: "tracking_code",
             header: "کد پیگیری (شماره فاکتور)",
+            cell: ({ getValue }) => getValue() || "-",
           },
           {
             accessorKey: "date",
             header: "تاریخ",
-            cell: ({ row: { original } }) => gregorianToJalali(original.date),
+            cell: ({ getValue }) => gregorianToJalali(getValue()) || "-",
           },
           {
             accessorKey: "total_price",
             header: "مبلغ کل",
+            cell: ({ getValue }) => getValue() || "-",
           },
           {
             accessorKey: "total_count",
             header: "جمع اقلام",
+            cell: ({ getValue }) => getValue() || "-",
           },
           {
             accessorKey: "paid_amount",
             header: "پرداخت شده",
+            cell: ({ getValue }) => getValue() || "-",
           },
           {
             accessorKey: "tax_amount",
             header: "جمع ماليات",
+            cell: ({ getValue }) => getValue() || "-",
           },
           {
             accessorKey: "total_price_with_tax",
             header: "جمع اقلام + ماليات",
+            cell: ({ getValue }) => getValue() || "-",
           },
           {
             accessorKey: "description",
             header: "توضيحات",
+            cell: ({ getValue }) => getValue() || "-",
           },
           {
             header: "اقدامات",

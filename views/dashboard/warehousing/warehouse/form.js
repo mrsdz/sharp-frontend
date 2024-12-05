@@ -58,7 +58,7 @@ export default function FormWarehouse({ errors, data, setData }) {
             value={data.type}
             onValueChange={(value) => setData("type", value)}
           >
-            <SelectTrigger>
+            <SelectTrigger value={data.type}>
               <SelectValue placeholder="نوع انتخاب کنید" />
             </SelectTrigger>
             <SelectContent>

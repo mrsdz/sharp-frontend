@@ -1,6 +1,8 @@
+// components
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -8,8 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import CustomDatePicker from "@/components/date-picker";
+import WarehouseAutoComplete from "@/components/warehouse-autocomplete";
+import SellerAutoComplete from "@/components/seller-autocomplete";
+// constants
+import { supplierType } from "@/constants/supplier-type";
 
 export default function Information({ data, setData, errors }) {
   return (
@@ -18,102 +23,81 @@ export default function Information({ data, setData, errors }) {
         <CardTitle>مشخصات فاکتور خرید</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <Label htmlFor="serial_number" className="text-right">
-              سریال سند
-            </Label>
-            <Input
-              name="serial_number"
-              id="serial_number"
-              placeholder="سریال سند را وارد کنید"
-              error={errors.serial_number}
-              value={data.serial_number}
-              onChange={(e) => setData("serial_number", e.target.value)}
-            />
-          </div>
+        <div className="grid grid-cols-4 gap-4">
           <div>
             <Label htmlFor="date">تاریخ صدور</Label>
             <CustomDatePicker
               selectedDay={data.date}
-              setSelectedDay={(date) => setData({ ...data, date: date })}
+              setSelectedDay={(date) => setData("date", date)}
               placeholder="تاریخ صدور را وارد کنید"
               id="date"
             />
           </div>
           <div>
-            <Label htmlFor="tracking_number" className="text-right">
+            <Label htmlFor="tracking_code" className="text-right">
               شماره پیگیری/فاکتور
             </Label>
             <Input
-              name="tracking_number"
-              id="tracking_number"
+              name="tracking_code"
+              id="tracking_code"
               placeholder="شماره پیگیری/فاکتور را وارد کنید"
-              error={errors.tracking_number}
-              value={data.tracking_number}
-              onChange={(e) => setData("tracking_number", e.target.value)}
+              error={errors.tracking_code}
+              value={data.tracking_code}
+              onChange={(e) => setData("tracking_code", e.target.value)}
             />
+          </div>
+          <div>
+            <Label htmlFor="supplier_type" className="text-right">
+              نوع فروشنده
+            </Label>
+            <Select
+              name="supplier_type"
+              id="supplier_type"
+              error={errors.supplier_type}
+              value={data.supplier_type}
+              onChange={(e) => setData("supplier_type", e)}
+            >
+              <SelectTrigger value={data.supplier_type}>
+                <SelectValue placeholder="نوع فروشنده انتخاب کنید" />
+              </SelectTrigger>
+              <SelectContent side="top">
+                {Object.entries(supplierType).map(([key, value]) => (
+                  <SelectItem key={key} value={key}>
+                    {value}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div>
             <Label htmlFor="seller" className="text-right">
               فروشنده
             </Label>
-            <Select
+            <SellerAutoComplete
               name="seller"
               id="seller"
+              placeholder="فروشنده انتخاب کنید"
               error={errors.seller}
               value={data.seller}
-              onValueChange={(value) => setData({ ...data, seller: value })}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="فروشنده انتخاب کنید" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="company">شرکت</SelectItem>
-                <SelectItem value="partner">همکار</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label htmlFor="seller_name" className="text-right">
-              نام فروشنده
-            </Label>
-            <Input
-              name="seller_name"
-              id="seller_name"
-              placeholder="نام فروشنده را وارد کنید"
-              error={errors.seller_name}
-              value={data.seller_name}
-              onChange={(e) => setData("seller_name", e.target.value)}
+              onChange={(e) => setData("seller", e)}
+              popupWidth="w-[196px]"
             />
           </div>
-          {/* <div>
-                <Label htmlFor="partner_national_code" className="text-right">
-                  کد ملی همکار
-                </Label>
-                <Input
-                  name="part_national_code"
-                  id="part_national_code"
-                  placeholder="کد ملی همکار را وارد کنید"
-                  error={errors.part_national_code}
-                  value={data.part_national_code}
-                  onChange={(e) => setData("part_national_code", e.target.value)}
-                />
-              </div> */}
           <div>
-            <Label htmlFor="default_warehouse" className="text-right">
+            <Label htmlFor="section" className="text-right">
               انبار پیش فرض
             </Label>
-            <Input
-              name="default_warehouse"
-              id="default_warehouse"
+            <WarehouseAutoComplete
+              name="section"
+              id="section"
               placeholder="انبار پیش فرض را وارد کنید"
-              error={errors.default_warehouse}
-              value={data.default_warehouse}
-              onChange={(e) => setData("default_warehouse", e.target.value)}
+              error={errors.section}
+              value={data.section}
+              onChange={(e) => setData("section", e)}
+              popupWidth="w-[196px]"
             />
           </div>
-          <div className="col-span-3">
+          <div className="col-span-4">
             <Label htmlFor="description" className="text-right">
               توضیحات
             </Label>

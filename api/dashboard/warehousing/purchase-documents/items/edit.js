@@ -6,12 +6,7 @@ import AxiosInstance from "@/api/instance";
 // utils
 import getToken from "@/auth/get-token";
 
-export default async function editPurchaseDocumentItem({
-  storeId,
-  purchaseDocumentId,
-  id,
-  body,
-}) {
+export default async function editPurchaseDocumentItem({ storeId, purchaseDocumentId, id, body }) {
   const res = await AxiosInstance.patch(
     `/api/store/${storeId}/buy-receipt/${purchaseDocumentId}/items/${id}/`,
     {

@@ -62,7 +62,7 @@ export function DataTablePagination({ table }) {
           }}
           size="sm"
         >
-          <SelectTrigger className="h-8 w-[70px]">
+          <SelectTrigger value={`${table.getState().pagination.pageSize}`} className="h-8 w-[70px]">
             <SelectValue placeholder={table.getState().pagination.pageSize} />
           </SelectTrigger>
           <SelectContent side="top">

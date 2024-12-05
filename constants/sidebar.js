@@ -12,6 +12,7 @@ import {
   PackageMinus,
   PackagePlus,
   PackageOpen,
+  Store,
 } from "lucide-react";
 // constants
 import { VIEW_STAFF } from "@/constants/permissions";
@@ -51,6 +52,12 @@ const sidebar = [
         icon: Package,
       },
     ],
+  },
+  {
+    name: "فروشندگان",
+    url: "/sellers",
+    icon: Store,
+    permission: VIEW_STAFF,
   },
   {
     name: "نسخ (به زودی)",

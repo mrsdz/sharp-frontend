@@ -10,6 +10,7 @@ export default async function getSinglePurchaseDocument({ storeId, purchaseDocum
   const res = await fetch(urls.purchaseDocuments.single(storeId, purchaseDocumentId), {
     headers: { ...(await getToken()) },
     cache: "no-store",
+    next: { tags: [`purchase-document-${purchaseDocumentId}`] },
   });
 
   return await res.json();

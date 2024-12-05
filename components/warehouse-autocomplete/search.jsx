@@ -12,25 +12,25 @@ import {
   CommandList,
   CommandItem,
 } from "@/components/ui/command";
-import getStaffs from "@/api/dashboard/staff/get";
+import getWarehouses from "@/api/dashboard/warehousing/warehouse/get";
 
-export default function StaffSearch({ onChange, value, setState }) {
+export default function WarehouseSearch({ onChange, value, setState }) {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
-  const debouncedSearch = useDebounce((data) => getStaffFunc(data), 300);
+  const debouncedSearch = useDebounce((data) => getWarehousesFunc(data), 300);
 
-  async function getStaffFunc(data = "") {
+  async function getWarehousesFunc(data = "") {
     setLoading(true);
-    const res = await getStaffs({ id, search: data });
+    const res = await getWarehouses({ id, search: data });
     setData(res.results);
     setLoading(false);
   }
 
   useEffect(() => {
-    if (!data.length) getStaffFunc();
+    if (!data.length) getWarehousesFunc();
   }, []);
 
   return (
@@ -40,30 +40,25 @@ export default function StaffSearch({ onChange, value, setState }) {
         placeholder="برای جستجو، اینجا تایپ کنید..."
       />
       <CommandList>
-        <CommandEmpty>{loading ? "جستجو..." : "کاربری یافت نشد"}</CommandEmpty>
+        <CommandEmpty>{loading ? "جستجو..." : "انباری یافت نشد"}</CommandEmpty>
 
         <CommandGroup>
           {data.length
-            ? data.map((user) => (
+            ? data.map((warehouse) => (
                 <CommandItem
-                  key={user.id}
-                  value={user.id}
-                  onSelect={(currentValue) => {
-                    let selectedOption = data.find((item) => item.display_name === currentValue);
-                    const isSelected = value.some((option) => option.id === selectedOption.id);
-                    if (isSelected)
-                      onChange(value.filter((option) => option.id !== selectedOption.id));
-                    else onChange([...value, selectedOption]);
-
+                  key={warehouse.id}
+                  value={warehouse.id}
+                  onSelect={() => {
+                    onChange(warehouse);
                     setState(false);
                   }}
                 >
-                  {user.display_name}
+                  {warehouse.name}
 
                   <Check
                     className={cn(
                       "mr-auto h-4 w-4",
-                      value.some((item) => item.id === user.id) ? "opacity-100" : "opacity-0"
+                      value.id == warehouse.id ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

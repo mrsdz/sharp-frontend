@@ -1,6 +1,6 @@
 import EditPurchaseDocument from "@/views/dashboard/warehousing/purchase-documents/edit";
 // api
-import getSinglePurchaseDocument from "@/api/dashboard/warehousing/purchase-documents/get-single-purchase-document";
+import getSinglePurchaseDocument from "@/api/dashboard/warehousing/purchase-documents/get-single";
 import getPurchaseDocumentItems from "@/api/dashboard/warehousing/purchase-documents/items/get-items";
 // serializers
 import serializePurchaseDocumentInfo from "@/serializers/purchase-document/info";
@@ -19,7 +19,10 @@ export default async function AddPurchaseDocument({ params }) {
     purchaseDocumentId: purchase_document_id,
   });
 
-
-  console.log(items);
-  return <EditPurchaseDocument initialData={serializePurchaseDocumentInfo(data)} items={items} />;
+  return (
+    <EditPurchaseDocument
+      initialInformationData={serializePurchaseDocumentInfo(data)}
+      itemsData={items}
+    />
+  );
 }

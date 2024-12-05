@@ -4,13 +4,14 @@ export default function serializePurchaseDocumentInfo(data) {
   const date = gregorianToJalali(data.date).split("-");
 
   return {
-    serial_number: data.serial_number || "",
     date: date ? { year: Number(date[0]), month: Number(date[1]), day: Number(date[2]) } : "",
-    tracking_number: data.tracking_number || "",
-    seller: data.seller || "",
-    seller_name: data.seller_name || "",
-    partner_national_code: data.partner_national_code || "",
-    default_warehouse: data.default_warehouse || "",
+    tracking_code: data.tracking_code || "",
+    seller: data.supplier || "",
+    section: data.section || "",
     description: data.description || "",
+    is_draft: data.is_draft,
+    paid_amount: data.paid_amount || 0,
+    price_increase: data.price_increase || "",
+    supplier_type: data.supplier_type || "",
   };
 }

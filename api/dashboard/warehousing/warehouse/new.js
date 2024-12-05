@@ -31,9 +31,6 @@ export default async function newWarehouseApi(data, id) {
     }
   );
 
-  console.log("--------------------------------");
-  console.log(res.response);
-
   if (res.status === 201) {
     revalidatePath(`/dashboard/${id}/warehousing/warehouse`);
     return { status: 201, data: res.data };

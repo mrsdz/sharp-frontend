@@ -1,12 +1,13 @@
 "use server";
+
 import { revalidatePath } from "next/cache";
 // api
 import AxiosInstance from "@/api/instance";
-import schema from "./schema";
 // utils
 import getToken from "@/auth/get-token";
+import schema from "./schema";
 
-export default async function newUserApi(data, storeId) {
+export default async function editSellerApi(data, storeId) {
   const validatedFields = schema.safeParse(data);
 
   if (!validatedFields.success) {
@@ -15,12 +16,12 @@ export default async function newUserApi(data, storeId) {
     };
   }
 
-  const res = await AxiosInstance.post(`/api/store/${storeId}/staff/`, data, {
+  const res = await AxiosInstance.patch(`/api/store/${storeId}/supplier/${data.id}/`, data, {
     headers: { ...(await getToken()) },
   });
 
-  if (res.status === 201) {
-    revalidatePath(`/dashboard/${storeId}/staff`);
-    return { status: 201, data: res.data };
+  if (res.status === 200) {
+    revalidatePath(`/dashboard/${storeId}/sellers`);
+    return { status: 200, data: res.data };
   }
 }

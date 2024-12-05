@@ -6,7 +6,7 @@ import schema from "./schema";
 // utils
 import getToken from "@/auth/get-token";
 
-export default async function newUserApi(data, storeId) {
+export default async function newSellerApi(data, storeId) {
   const validatedFields = schema.safeParse(data);
 
   if (!validatedFields.success) {
@@ -15,12 +15,12 @@ export default async function newUserApi(data, storeId) {
     };
   }
 
-  const res = await AxiosInstance.post(`/api/store/${storeId}/staff/`, data, {
+  const res = await AxiosInstance.post(`/api/store/${storeId}/supplier/`, data, {
     headers: { ...(await getToken()) },
   });
 
   if (res.status === 201) {
-    revalidatePath(`/dashboard/${storeId}/staff`);
+    revalidatePath(`/dashboard/${storeId}/sellers`);
     return { status: 201, data: res.data };
   }
 }

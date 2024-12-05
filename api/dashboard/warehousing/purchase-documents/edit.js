@@ -1,25 +1,24 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 // api
 import AxiosInstance from "@/api/instance";
 // utils
 import getToken from "@/auth/get-token";
-import schema from "./schema";
+import jalaliToGregorian from "@/utils/jalali-to-gregorian";
 
-export default async function editPurchaseDocumentApi(data, id) {
-  const validatedFields = schema.safeParse(data);
-
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    };
-  }
-
+export default async function editPurchaseDocumentApi({ data, storeId, purchaseDocumentId }) {
   const res = await AxiosInstance.patch(
-    `/api/store/${id}/warehousing/purchase_documents/${data.id}/`,
+    `/api/store/${storeId}/buy-receipt/${purchaseDocumentId}/`,
     {
-      // TODO: add fields
+      date: jalaliToGregorian(data.date),
+      section: data.section?.id || "",
+      supplier: data.seller?.id || "",
+      description: data.description,
+      tracking_code: data.tracking_code,
+      total_discount: data.total_discount,
+      price_increase: data.price_increase,
+      paid_amount: data.paid_amount,
     },
     {
       headers: { ...(await getToken()) },
@@ -27,7 +26,7 @@ export default async function editPurchaseDocumentApi(data, id) {
   );
 
   if (res.status === 200) {
-    revalidatePath(`/dashboard/${id}/warehousing/purchase_documents`);
+    revalidateTag(`purchase-document-${purchaseDocumentId}`);
     return { status: 200, data: res.data };
   }
 }

@@ -31,7 +31,7 @@ export default function UserGroupSelect({ data, setData, error }) {
       value={data}
       onValueChange={(value) => setData(value)}
     >
-      <SelectTrigger>
+      <SelectTrigger value={data}>
         <SelectValue placeholder="سمت انتخاب کنید" />
       </SelectTrigger>
       <SelectContent>

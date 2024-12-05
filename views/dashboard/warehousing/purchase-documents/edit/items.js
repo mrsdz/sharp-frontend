@@ -4,7 +4,7 @@ import NewItem from "@/views/dashboard/warehousing/purchase-documents/edit/new-i
 // views
 import TableAddPurchaseDocument from "@/views/dashboard/warehousing/purchase-documents/edit/table";
 
-export default function Items({ data, handleDataChange }) {
+export default function Items({ data, handleItemChange, handleDeleteChange }) {
   return (
     <Card className="shadow-none">
       <CardHeader className="flex flex-row items-center justify-between">
@@ -12,7 +12,11 @@ export default function Items({ data, handleDataChange }) {
         <NewItem />
       </CardHeader>
       <CardContent>
-        <TableAddPurchaseDocument data={data} handleDataChange={handleDataChange} />
+        <TableAddPurchaseDocument
+          data={data}
+          handleItemChange={handleItemChange}
+          handleDeleteChange={handleDeleteChange}
+        />
       </CardContent>
     </Card>
   );
