@@ -1,6 +1,6 @@
 "use client";
 // components
-import { DataTable } from "@/components/data-table";
+import { EditableDataTable } from "@/components/editable-data-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -22,7 +22,7 @@ const EditableCell = ({ value, onBlur }) => (
 
 export default function TableAddPurchaseDocument({ data, handleItemChange, handleDeleteChange }) {
   return (
-    <DataTable
+    <EditableDataTable
       tableHeaderClassName="text-center text-xs"
       tableCellClassName="p-1 border-l border-border text-center"
       columns={[
@@ -192,8 +192,7 @@ export default function TableAddPurchaseDocument({ data, handleItemChange, handl
           ),
         },
       ]}
-      data={{ results: data }}
-      pagination={false}
+      data={data}
     />
   );
 }

@@ -13,7 +13,10 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import HasAccessComponent from "@/components/has-access-component";
+import { Badge } from "@/components/ui/badge";
 import { Edit3, Eye, MoreVertical, Trash2Icon } from "lucide-react";
+// api
+import getPurchaseDocumentItems from "@/api/dashboard/warehousing/purchase-documents/items/get-items";
 // views
 import DeletePurchaseDocumentDialog from "./delete";
 // constants
@@ -32,6 +35,13 @@ export default function TablePurchaseDocument({
 
   const [openDeletePurchaseDocument, setOpenDeletePurchaseDocument] = useState(initialDeleteData);
 
+  const viewItems = ({ storeId, purchaseDocumentId, factorId }, callback) => {
+    getPurchaseDocumentItems({ storeId, purchaseDocumentId }).then((res) => {
+      setSelectedPurchaseDocument({ ...res, factor_id: factorId });
+      callback?.();
+    });
+  };
+
   return (
     <>
       <DataTable
@@ -39,7 +49,7 @@ export default function TablePurchaseDocument({
         columns={[
           { header: "#", cell: ({ row: { index } }) => index + 1 },
           {
-            accessorKey: "serial_number",
+            accessorKey: "id",
             header: "سریال سند",
             cell: ({ getValue }) => getValue() || "-",
           },
@@ -84,8 +94,18 @@ export default function TablePurchaseDocument({
             cell: ({ getValue }) => getValue() || "-",
           },
           {
+            accessorKey: "is_draft",
+            header: "وضعيت",
+            cell: ({ getValue }) =>
+              getValue() ? (
+                <Badge variant="warning">پیش نویس</Badge>
+              ) : (
+                <Badge variant="success">ثبت شده</Badge>
+              ),
+          },
+          {
             header: "اقدامات",
-            cell: ({ row: { original } }) => (
+            cell: ({ row: { original, toggleSelected }, table }) => (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost">
@@ -93,39 +113,55 @@ export default function TablePurchaseDocument({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem onClick={() => setSelectedPurchaseDocument(original.id)}>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      viewItems(
+                        {
+                          storeId: original.store,
+                          purchaseDocumentId: original.id,
+                          factorId: original.id,
+                        },
+                        () => toggleSelected()
+                      );
+                      table.toggleAllPageRowsSelected(false);
+                    }}
+                  >
                     <Eye />
                     مشاهده اقلام
                   </DropdownMenuItem>
-                  <HasAccessComponent
-                    component={
-                      <DropdownMenuItem
-                        onClick={() =>
-                          router.push(
-                            `/dashboard/${original.store}/warehousing/purchase_documents/${original.id}`
-                          )
+                  {original.is_draft && (
+                    <>
+                      <HasAccessComponent
+                        component={
+                          <DropdownMenuItem
+                            onClick={() =>
+                              router.push(
+                                `/dashboard/${original.store}/warehousing/purchase_documents/${original.id}`
+                              )
+                            }
+                          >
+                            <Edit3 />
+                            ویرایش
+                          </DropdownMenuItem>
                         }
-                      >
-                        <Edit3 />
-                        ویرایش
-                      </DropdownMenuItem>
-                    }
-                    requiredPermissions={[EDIT_PURCHASE_DOCUMENT]}
-                  />
-                  <HasAccessComponent
-                    component={
-                      <DropdownMenuItem
-                        onClick={() =>
-                          setOpenDeletePurchaseDocument({ open: true, id: original.id })
+                        requiredPermissions={[EDIT_PURCHASE_DOCUMENT]}
+                      />
+                      <HasAccessComponent
+                        component={
+                          <DropdownMenuItem
+                            onClick={() =>
+                              setOpenDeletePurchaseDocument({ open: true, id: original.id })
+                            }
+                            className="text-destructive hover:text-destructive"
+                          >
+                            <Trash2Icon />
+                            حذف
+                          </DropdownMenuItem>
                         }
-                        className="text-destructive hover:text-destructive"
-                      >
-                        <Trash2Icon />
-                        حذف
-                      </DropdownMenuItem>
-                    }
-                    requiredPermissions={[DELETE_PURCHASE_DOCUMENT]}
-                  />
+                        requiredPermissions={[DELETE_PURCHASE_DOCUMENT]}
+                      />
+                    </>
+                  )}
                 </DropdownMenuContent>
               </DropdownMenu>
             ),

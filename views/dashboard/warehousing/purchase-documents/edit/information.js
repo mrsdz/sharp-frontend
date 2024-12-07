@@ -16,7 +16,7 @@ import SellerAutoComplete from "@/components/seller-autocomplete";
 // constants
 import { supplierType } from "@/constants/supplier-type";
 
-export default function Information({ data, setData, errors }) {
+export default function Information({ data, setData }) {
   return (
     <Card className="shadow-none col-span-3">
       <CardHeader className="flex flex-row items-center justify-between">
@@ -41,7 +41,6 @@ export default function Information({ data, setData, errors }) {
               name="tracking_code"
               id="tracking_code"
               placeholder="شماره پیگیری/فاکتور را وارد کنید"
-              error={errors.tracking_code}
               value={data.tracking_code}
               onChange={(e) => setData("tracking_code", e.target.value)}
             />
@@ -53,7 +52,6 @@ export default function Information({ data, setData, errors }) {
             <Select
               name="supplier_type"
               id="supplier_type"
-              error={errors.supplier_type}
               value={data.supplier_type}
               onChange={(e) => setData("supplier_type", e)}
             >
@@ -77,7 +75,6 @@ export default function Information({ data, setData, errors }) {
               name="seller"
               id="seller"
               placeholder="فروشنده انتخاب کنید"
-              error={errors.seller}
               value={data.seller}
               onChange={(e) => setData("seller", e)}
               popupWidth="w-[196px]"
@@ -91,7 +88,6 @@ export default function Information({ data, setData, errors }) {
               name="section"
               id="section"
               placeholder="انبار پیش فرض را وارد کنید"
-              error={errors.section}
               value={data.section}
               onChange={(e) => setData("section", e)}
               popupWidth="w-[196px]"
@@ -105,7 +101,6 @@ export default function Information({ data, setData, errors }) {
               name="description"
               id="description"
               placeholder="توضیحات را وارد کنید"
-              error={errors.description}
               value={data.description}
               onChange={(e) => setData("description", e.target.value)}
             />

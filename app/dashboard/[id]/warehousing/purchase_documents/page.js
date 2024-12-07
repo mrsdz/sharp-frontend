@@ -5,7 +5,7 @@ import getPurchaseDocuments from "@/api/dashboard/warehousing/purchase-documents
 // views
 import NewPurchaseDocument from "@/views/dashboard/warehousing/purchase-documents/new";
 import ViewPurchaseDocuments from "@/views/dashboard/warehousing/purchase-documents";
-import FactorsItems from "@/views/dashboard/warehousing/factors-items";
+import FactorsItems from "@/views/dashboard/warehousing/purchase-documents/factors-items";
 
 export default async function Warehousing({ params, searchParams }) {
   const id = (await params).id;

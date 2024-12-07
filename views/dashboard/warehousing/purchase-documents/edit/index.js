@@ -6,12 +6,14 @@ import { useRouter, useParams } from "next/navigation";
 import editPurchaseDocumentApi from "@/api/dashboard/warehousing/purchase-documents/edit";
 import editPurchaseDocumentItem from "@/api/dashboard/warehousing/purchase-documents/items/edit";
 import deletePurchaseDocumentItem from "@/api/dashboard/warehousing/purchase-documents/items/delete";
+import finalizePurchaseDocumentApi from "@/api/dashboard/warehousing/purchase-documents/finalize";
 // views
 import Information from "@/views/dashboard/warehousing/purchase-documents/edit/information";
 import Factor from "@/views/dashboard/warehousing/purchase-documents/edit/factor";
 import Items from "@/views/dashboard/warehousing/purchase-documents/edit/items";
 // components
 import { Button } from "@/components/ui/button";
+import { DrawerDialog } from "@/components/drawer-dialog";
 // utils
 import { isEqual } from "lodash";
 
@@ -20,7 +22,7 @@ export default function EditPurchaseDocument({ initialInformationData, itemsData
   const { id: storeId, purchase_document_id: purchaseDocumentId } = useParams();
 
   const [informationData, setInformationData] = useState(initialInformationData);
-  const [errors, setErrors] = useState({});
+  const [confirmDialog, setConfirmDialog] = useState(false);
 
   const [isPending, startTransition] = useTransition();
 
@@ -53,15 +55,6 @@ export default function EditPurchaseDocument({ initialInformationData, itemsData
     [informationData]
   );
 
-  const handleSaveData = useCallback(
-    (key, value) => {
-      startTransition(() => {
-        editPurchaseDocumentApi({ data: { [key]: value }, storeId, purchaseDocumentId });
-      });
-    },
-    [storeId, purchaseDocumentId]
-  );
-
   useEffect(() => {
     const handler = setTimeout(() => {
       if (!isEqual(informationData, initialInformationData)) {
@@ -76,12 +69,10 @@ export default function EditPurchaseDocument({ initialInformationData, itemsData
     };
   }, [informationData]);
 
-  console.log(informationData);
-
   return (
     <>
       <div className="grid grid-cols-4 gap-4">
-        <Information data={informationData} setData={handleSetData} errors={errors} />
+        <Information data={informationData} setData={handleSetData} />
         <Factor informationData={informationData} itemsData={itemsData} setData={handleSetData} />
       </div>
       <Items
@@ -105,9 +96,27 @@ export default function EditPurchaseDocument({ initialInformationData, itemsData
               پیش نویس ذخیره شد
             </div>
           )}
-          <Button size="lg">ثبت نهایی</Button>
+          <Button onClick={() => setConfirmDialog(true)} size="lg">
+            ثبت نهایی
+          </Button>
         </div>
       </div>
+      <DrawerDialog
+        title="ثبت نهایی"
+        description="آیا از ثبت نهایی این سند مطمئن هستید؟ سند پس از ثبت نهایی قابل ویرایش نمی باشد."
+        open={confirmDialog}
+        setOpen={() => setConfirmDialog(false)}
+        footer={
+          <Button
+            variant="success"
+            loading={isPending}
+            onClick={() => finalizePurchaseDocumentApi({ storeId, purchaseDocumentId })}
+            type="submit"
+          >
+            ثبت نهایی
+          </Button>
+        }
+      />
     </>
   );
 }
