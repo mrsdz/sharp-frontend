@@ -82,7 +82,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl" suppressHydrationWarning>
-      <body className={`${vazirmatn.className} antialiased`}>
+      <body className={`${vazirmatn.className} antialiased w-[100vw] max-w-[100vw]`}>
         <AppStoreProvider>
           <ThemeProvider
             attribute="class"
