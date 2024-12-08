@@ -26,7 +26,7 @@ export default function Factor({ informationData, itemsData, setData }) {
           <li className="flex justify-between border-b py-2 border-muted text-sm">
             <span className="text-muted-foreground">افزایش قیمت</span>
             <Input
-              type="text"
+              type="money"
               className="max-w-16 h-5 rounded-sm px-1"
               dir="ltr"
               value={informationData.price_increase}
@@ -36,7 +36,7 @@ export default function Factor({ informationData, itemsData, setData }) {
           <li className="flex justify-between border-b py-2 border-muted text-sm">
             <span className="text-muted-foreground">پرداخت شده</span>
             <Input
-              type="text"
+              type="money"
               className="max-w-16 h-5 rounded-sm px-1"
               dir="ltr"
               value={informationData.paid_amount}

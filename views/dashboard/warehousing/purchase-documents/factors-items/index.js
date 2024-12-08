@@ -18,16 +18,14 @@ export default function FactorsItems() {
     <Card className="shadow-none">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="flex flex-col gap-1.5">
-          <CardTitle>
-            لیست اقلام فاکتور {selectedPurchaseDocument.factor_id}
-          </CardTitle>
+          <CardTitle>لیست اقلام فاکتور {selectedPurchaseDocument.factor_id}</CardTitle>
         </div>
         <Button onClick={() => setSelectedPurchaseDocument(null)} variant="destructive" size="icon">
           <X />
         </Button>
       </CardHeader>
       <CardContent>
-        <TableFactorsItems data={{ results: selectedPurchaseDocument }} />
+        <TableFactorsItems data={{ results: selectedPurchaseDocument.items }} />
       </CardContent>
     </Card>
   );

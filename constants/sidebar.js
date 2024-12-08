@@ -32,6 +32,12 @@ const sidebar = [
     permission: VIEW_STAFF,
   },
   {
+    name: "فروشندگان",
+    url: "/sellers",
+    icon: Store,
+    permission: VIEW_STAFF,
+  },
+  {
     name: "انبارداری",
     icon: PackageOpen,
     permission: VIEW_STAFF,
@@ -52,12 +58,6 @@ const sidebar = [
         icon: Package,
       },
     ],
-  },
-  {
-    name: "فروشندگان",
-    url: "/sellers",
-    icon: Store,
-    permission: VIEW_STAFF,
   },
   {
     name: "نسخ (به زودی)",

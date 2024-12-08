@@ -19,8 +19,8 @@ export function EditableDataTable({
   tableHeaderClassName = "",
 }) {
   const table = useReactTable({
-    data: useMemo(() => data, []),
-    columns: useMemo(() => columns, []),
+    data: useMemo(() => data, [data]),
+    columns: useMemo(() => columns, [columns]),
     getCoreRowModel: getCoreRowModel(),
   });
 

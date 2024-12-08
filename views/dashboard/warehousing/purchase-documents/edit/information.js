@@ -53,7 +53,7 @@ export default function Information({ data, setData }) {
               name="supplier_type"
               id="supplier_type"
               value={data.supplier_type}
-              onChange={(e) => setData("supplier_type", e)}
+              onValueChange={(e) => setData("supplier_type", e)}
             >
               <SelectTrigger value={data.supplier_type}>
                 <SelectValue placeholder="نوع فروشنده انتخاب کنید" />

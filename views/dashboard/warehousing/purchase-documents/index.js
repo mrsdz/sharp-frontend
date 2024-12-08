@@ -25,6 +25,7 @@ export default function ViewPurchaseDocuments({ data }) {
       <FilterPurchaseDocument
         refetchData={refetchData}
         searchValue={searchParams.get("search")?.toString()}
+        supplierType={searchParams.get("supplierType")?.toString()}
       />
       <TablePurchaseDocument data={data} refetchData={refetchData} />
     </>

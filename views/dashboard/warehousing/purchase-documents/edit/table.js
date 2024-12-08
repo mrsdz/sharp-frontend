@@ -12,7 +12,7 @@ import { Trash2Icon } from "lucide-react";
 
 const EditableCell = ({ value, onBlur }) => (
   <Input
-    type="text"
+    type="money"
     className="border-none focus-visible:ring-0 px-1 text-center"
     maxLength={10}
     defaultValue={value}

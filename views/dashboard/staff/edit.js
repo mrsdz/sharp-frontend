@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 // api
 import editUserApi from "@/api/dashboard/staff/edit";
 // serializer
-import serializeStaffInfo from "@/serializers/staff-info";
+import serializeStaffInfo from "@/serializers/staff/info";
 // components
 import { Button } from "@/components/ui/button";
 import { DrawerDialog } from "@/components/drawer-dialog";

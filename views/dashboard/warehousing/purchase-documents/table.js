@@ -23,6 +23,8 @@ import DeletePurchaseDocumentDialog from "./delete";
 import { EDIT_PURCHASE_DOCUMENT, DELETE_PURCHASE_DOCUMENT } from "@/constants/permissions";
 // utils
 import gregorianToJalali from "@/utils/gregorian-to-jalali";
+// constants
+import { supplierType } from "@/constants/supplier-type";
 
 const initialDeleteData = { open: false, id: null };
 
@@ -37,7 +39,7 @@ export default function TablePurchaseDocument({
 
   const viewItems = ({ storeId, purchaseDocumentId, factorId }, callback) => {
     getPurchaseDocumentItems({ storeId, purchaseDocumentId }).then((res) => {
-      setSelectedPurchaseDocument({ ...res, factor_id: factorId });
+      setSelectedPurchaseDocument({ items: res, factor_id: factorId });
       callback?.();
     });
   };
@@ -57,6 +59,18 @@ export default function TablePurchaseDocument({
             accessorKey: "tracking_code",
             header: "کد پیگیری (شماره فاکتور)",
             cell: ({ getValue }) => getValue() || "-",
+          },
+          {
+            accessorKey: "supplier_type",
+            header: "طرف قرارداد",
+            cell: ({ getValue }) =>
+              getValue() ? (
+                <Badge variant={getValue() === "COMPANY" ? "default" : "warning"}>
+                  {supplierType[getValue()]}
+                </Badge>
+              ) : (
+                "-"
+              ),
           },
           {
             accessorKey: "date",

@@ -18,7 +18,7 @@ import DeleteWarehouseDialog from "./delete";
 // constants
 import { EDIT_WAREHOUSE, DELETE_WAREHOUSE } from "@/constants/permissions";
 // serializers
-import serializedWarehouseType from "@/serializers/warehouse-type";
+import serializeWarehouseType from "@/serializers/warehouse/type";
 
 const initialDeleteData = { open: false, id: null };
 const initialEditData = {
@@ -68,7 +68,7 @@ export default function TableWarehouse({ data = { results: [], current_page: 1 }
             accessorKey: "section_type",
             header: "نوع",
             cell: ({ getValue }) => (
-              <Badge variant="secondary">{serializedWarehouseType(getValue())}</Badge>
+              <Badge variant="secondary">{serializeWarehouseType(getValue())}</Badge>
             ),
           },
           {
@@ -76,7 +76,11 @@ export default function TableWarehouse({ data = { results: [], current_page: 1 }
             header: "کاربران",
             cell: ({ getValue }) =>
               getValue().length
-                ? getValue().map((user) => <Badge className="mx-0.5" key={user.id} variant="secondary">{user.display_name}</Badge>)
+                ? getValue().map((user) => (
+                    <Badge className="mx-0.5" key={user.id} variant="secondary">
+                      {user.display_name}
+                    </Badge>
+                  ))
                 : "-",
           },
           {

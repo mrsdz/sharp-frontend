@@ -9,9 +9,9 @@ import FactorsItems from "@/views/dashboard/warehousing/purchase-documents/facto
 
 export default async function Warehousing({ params, searchParams }) {
   const id = (await params).id;
-  const { page, search } = await searchParams;
+  const { page, search, supplierType } = await searchParams;
 
-  const data = await getPurchaseDocuments({ id, page, search });
+  const data = await getPurchaseDocuments({ id, page, search, supplierType });
 
   return (
     <>

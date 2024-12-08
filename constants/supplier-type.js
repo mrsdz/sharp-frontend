@@ -1,4 +1,4 @@
 export const supplierType = {
-  PERSON: "شخصی",
-  COMPANY: "شرکت",
+  PERSON: "همکار",
+  COMPANY: "شرکت پخش",
 };
