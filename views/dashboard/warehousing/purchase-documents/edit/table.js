@@ -1,6 +1,6 @@
 "use client";
 // components
-import { EditableDataTable } from "@/components/editable-data-table";
+import { DataTable } from "@/components/data-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -10,10 +10,10 @@ import WarehouseAutoComplete from "@/components/warehouse-autocomplete";
 // icons
 import { Trash2Icon } from "lucide-react";
 
-const EditableCell = ({ value, onBlur }) => (
+const EditableCell = ({ value, onBlur, className = "" }) => (
   <Input
     type="money"
-    className="border-none focus-visible:ring-0 px-1 text-center"
+    className={`border-none focus-visible:ring-0 px-1 text-center ${className}`}
     maxLength={10}
     defaultValue={value}
     onBlur={(e) => onBlur(e.target.value)}
@@ -22,7 +22,7 @@ const EditableCell = ({ value, onBlur }) => (
 
 export default function TableAddPurchaseDocument({ data, handleItemChange, handleDeleteChange }) {
   return (
-    <EditableDataTable
+    <DataTable
       tableHeaderClassName="text-center text-xs"
       tableCellClassName="p-1 border-l border-border text-center"
       columns={[
@@ -57,10 +57,16 @@ export default function TableAddPurchaseDocument({ data, handleItemChange, handl
           accessorKey: "count",
           header: "تعداد",
           cell: ({ row: { original } }) => (
-            <EditableCell
-              onBlur={(value) => handleItemChange(original.id, "count", value)}
-              value={original.count}
-            />
+            <div className="flex items-center gap-1">
+              <EditableCell
+                onBlur={(value) => handleItemChange(original.id, "count", value)}
+                value={original.count}
+                className="w-7"
+              />
+              <span className="text-muted-foreground text-xs">
+                {original.item.measurement_unit.name}
+              </span>
+            </div>
           ),
         },
         {
@@ -141,22 +147,10 @@ export default function TableAddPurchaseDocument({ data, handleItemChange, handl
         {
           accessorKey: "profit_in_price",
           header: "سود (ریال)",
-          cell: ({ row: { original } }) => (
-            <EditableCell
-              onBlur={(value) => handleItemChange(original.id, "profit_in_price", value)}
-              value={original.profit_in_price}
-            />
-          ),
         },
         {
           accessorKey: "profit_in_percent",
           header: "سود (درصد)",
-          cell: ({ row: { original } }) => (
-            <EditableCell
-              onBlur={(value) => handleItemChange(original.id, "profit_in_percent", value)}
-              value={original.profit_in_percent}
-            />
-          ),
         },
         {
           accessorKey: "return_count",
@@ -192,7 +186,8 @@ export default function TableAddPurchaseDocument({ data, handleItemChange, handl
           ),
         },
       ]}
-      data={data}
+      data={{ results: data }}
+      pagination={false}
     />
   );
 }

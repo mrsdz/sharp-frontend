@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { DrawerDialog } from "@/components/drawer-dialog";
 // utils
 import { isEqual } from "lodash";
+import checkNumber from "@/utils/number-checker";
 
 export default function EditPurchaseDocument({ initialInformationData, itemsData }) {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function EditPurchaseDocument({ initialInformationData, itemsData
           storeId,
           purchaseDocumentId,
           id,
-          body: { [key]: value === "" ? 0 : value },
+          body: { [key]: value === "" ? 0 : checkNumber(value) },
         });
       });
     },

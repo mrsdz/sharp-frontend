@@ -18,7 +18,7 @@ export default async function editPurchaseDocumentApi({ data, storeId, purchaseD
       supplier_type: data.supplier_type,
       description: data.description,
       tracking_code: data.tracking_code,
-      total_discount: data.total_discount,
+      total_discount: numberChecker(data.total_discount),
       price_increase: numberChecker(data.price_increase),
       paid_amount: numberChecker(data.paid_amount),
     },

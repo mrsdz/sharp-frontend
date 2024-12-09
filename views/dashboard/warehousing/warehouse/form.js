@@ -17,6 +17,7 @@ export default function FormWarehouse({ errors, data, setData }) {
       <div className="grid grid-cols-4 items-center gap-4">
         <Label htmlFor="name" className="text-right">
           نام
+          <span className="text-red-500">*</span>
         </Label>
         <div className="col-span-3">
           <Input
@@ -30,25 +31,9 @@ export default function FormWarehouse({ errors, data, setData }) {
         </div>
       </div>
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor="phone" className="text-right">
-          شماره تلفن
-        </Label>
-        <div className="col-span-3">
-          <Input
-            id="phone"
-            name="phone"
-            placeholder="02100000000"
-            dir="ltr"
-            maxLength={11}
-            error={errors.phone}
-            value={data.phone}
-            onChange={(e) => setData("phone", e.target.value)}
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-4 items-center gap-4">
         <Label htmlFor="type" className="text-right">
           نوع
+          <span className="text-red-500">*</span>
         </Label>
         <div className="col-span-3">
           <Select
@@ -68,6 +53,23 @@ export default function FormWarehouse({ errors, data, setData }) {
               <SelectItem value="other">دیگر</SelectItem>
             </SelectContent>
           </Select>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 items-center gap-4">
+        <Label htmlFor="phone" className="text-right">
+          شماره تلفن
+        </Label>
+        <div className="col-span-3">
+          <Input
+            id="phone"
+            name="phone"
+            placeholder="02100000000"
+            dir="ltr"
+            maxLength={11}
+            error={errors.phone}
+            value={data.phone}
+            onChange={(e) => setData("phone", e.target.value)}
+          />
         </div>
       </div>
       <div className="grid grid-cols-4 items-center gap-4">

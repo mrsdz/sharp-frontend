@@ -23,7 +23,7 @@ export default function Information({ data, setData }) {
         <CardTitle>مشخصات فاکتور خرید</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <div>
             <Label htmlFor="date">تاریخ صدور</Label>
             <CustomDatePicker
@@ -77,7 +77,7 @@ export default function Information({ data, setData }) {
               placeholder="فروشنده انتخاب کنید"
               value={data.seller}
               onChange={(e) => setData("seller", e)}
-              popupWidth="w-[196px]"
+              popupWidth="w-[267px]"
             />
           </div>
           <div>
@@ -90,10 +90,10 @@ export default function Information({ data, setData }) {
               placeholder="انبار پیش فرض را وارد کنید"
               value={data.section}
               onChange={(e) => setData("section", e)}
-              popupWidth="w-[196px]"
+              popupWidth="w-[267px]"
             />
           </div>
-          <div className="col-span-4">
+          <div className="col-span-3">
             <Label htmlFor="description" className="text-right">
               توضیحات
             </Label>

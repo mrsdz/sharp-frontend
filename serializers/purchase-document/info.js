@@ -13,5 +13,6 @@ export default function serializePurchaseDocumentInfo(data) {
     paid_amount: data.paid_amount || 0,
     price_increase: data.price_increase || "",
     supplier_type: data.supplier_type || "",
+    total_discount: data.total_discount || 0,
   };
 }

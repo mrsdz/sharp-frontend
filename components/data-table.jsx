@@ -1,4 +1,5 @@
 "use client";
+import { useMemo } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -28,7 +29,7 @@ export function DataTable({
 }) {
   const table = useReactTable({
     data: data.results,
-    columns: columns,
+    columns: useMemo(() => columns, []),
     getCoreRowModel: getCoreRowModel(),
     ...(pagination && {
       manualPagination: true,

@@ -96,3 +96,7 @@
 .DatePicker {
   z-index: 30 !important;
 }
+
+.ltr {
+  direction: ltr !important;
+}
